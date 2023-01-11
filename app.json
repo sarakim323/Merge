@@ -4,10 +4,18 @@
     "slug": "mvp",
     "version": "1.0.0",
     "orientation": "portrait",
-    "icon": "./assets/icon.png",
+    "icon": "./assets/logo-color.png",
     "userInterfaceStyle": "light",
+    "plugins": [
+      [
+        "react-native-auth0",
+        {
+          "domain": "dev-3bi7ivsjmisvh51y.us.auth0.com"
+        }
+      ]
+    ],
     "splash": {
-      "image": "./assets/splash.png",
+      "image": "./assets/logo-color.png",
       "resizeMode": "contain",
       "backgroundColor": "#ffffff"
     },
@@ -18,16 +26,18 @@
       "**/*"
     ],
     "ios": {
-      "supportsTablet": true
+      "supportsTablet": true,
+      "bundleIdentifier": "com.auth0samples"
     },
     "android": {
       "adaptiveIcon": {
-        "foregroundImage": "./assets/adaptive-icon.png",
+        "foregroundImage": "./assets/logo-color.png",
         "backgroundColor": "#FFFFFF"
-      }
+      },
+      "package": "com.auth0samples"
     },
     "web": {
-      "favicon": "./assets/favicon.png"
+      "favicon": "./assets/logo-color.png"
     }
   }
 }
