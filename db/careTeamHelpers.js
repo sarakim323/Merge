@@ -17,6 +17,20 @@ const handleGetCareTeam = async (req, res) => {
   })
 };
 
+const handlePostCareTeam = async (req, res) => {
+  let careteam = {
+    userId: req.body.userId
+  };
+
+  CareTeam.create(careteam)
+  .then(data => {
+    res.send(data);
+  })
+  .catch(err => {
+    res.status(400).send(err);
+  })
+};
+
 const handleAddProvider = async (req, res) => {
   let entry = {
     providername: req.body.providername,
@@ -55,11 +69,10 @@ const handleEditProvider = async (req, res) => {
   let specialty = req.body.specialty;
   let clinicname = req.body.clinicname;
   let phonenumber = req.body.phonenumber;
-  let careteamId = req.body.careteamId;
   let id = req.body.id;
 
   Provider.bulkCreate(
-    [{id: id, providername: providername, specialty: specialty, clinicname: clinicname, phonenumber: phonenumber, careteamId: careteamId}],
+    [{id: id, providername: providername, specialty: specialty, clinicname: clinicname, phonenumber: phonenumber}],
     {updateOnDuplicate: ['providername', 'specialty', 'clinicname', 'phonenumber', 'careteamId']}
   )
   .then(data => {
@@ -70,4 +83,4 @@ const handleEditProvider = async (req, res) => {
   })
 }
 
-module.exports = {handleGetCareTeam, handleAddProvider, handleEditProvider, handleDeleteProvider};
+module.exports = {handleGetCareTeam, handlePostCareTeam, handleAddProvider, handleEditProvider, handleDeleteProvider};
