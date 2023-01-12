@@ -9,6 +9,8 @@
     "web": "expo start --web"
   },
   "dependencies": {
+    "@react-navigation/native": "^6.1.2",
+    "@react-navigation/native-stack": "^6.9.8",
     "axios": "^1.2.2",
     "cors": "^2.8.5",
     "dotenv": "^16.0.3",
@@ -16,6 +18,7 @@
     "expo-splash-screen": "~0.17.5",
     "expo-status-bar": "~1.4.2",
     "express": "^4.18.2",
+    "firebase": "8.2.3",
     "nodemon": "^2.0.20",
     "path": "^0.12.7",
     "pg": "^8.8.0",
@@ -23,8 +26,11 @@
     "react": "18.1.0",
     "react-icons": "^4.7.1",
     "react-native": "0.70.5",
+    "react-native-safe-area-context": "4.4.1",
+    "react-native-screens": "~3.18.0",
     "react-scripts": "^5.0.1",
-    "sequelize": "^6.28.0"
+    "sequelize": "^6.28.0",
+    "@react-native-community/datetimepicker": "6.5.2"
   },
   "devDependencies": {
     "@babel/core": "^7.12.9",
