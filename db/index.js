@@ -63,6 +63,7 @@ Profile.belongsTo(User);
 const HealthScreenings = sequelize.define('healthscreenings', {
   id: {
     type: DataTypes.INTEGER,
+    autoIncrement: true,
     primaryKey: true
   }
 })

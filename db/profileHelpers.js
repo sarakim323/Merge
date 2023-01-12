@@ -1,5 +1,4 @@
 const {User, Profile} = require('./index.js');
-const {auth} = require('../firebase.js');
 
 const handleAddUserInfo = async (req, res) => {
   console.log('req', req.body)
@@ -56,12 +55,12 @@ const handleAddProfile = async (req, res) => {
 };
 
 const handleEditProfile = async (req, res) => {
-  let medicalconditions = req.query.medicalconditions;
-  let allergies = req.query.allergies;
-  let bloodtype = req.query.bloodtype;
-  let weight = req.query.weight;
-  let height = req.query.height;
-  let id = req.query.id;
+  let medicalconditions = req.body.medicalconditions;
+  let allergies = req.body.allergies;
+  let bloodtype = req.body.bloodtype;
+  let weight = req.body.weight;
+  let height = req.body.height;
+  let id = req.body.id;
 
   Profile.bulkCreate(
     [{id: id, medicalconditions: medicalconditions, allergies: allergies, bloodtype: bloodtype, weight: weight, height: height}],
