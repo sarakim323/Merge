@@ -2,6 +2,7 @@ const express = require('express');
 const router = express.Router();
 const {handleAddUserInfo, handleGetProfile, handleAddProfile, handleEditProfile} = require('../db/profileHelpers.js');
 const {handleGetHealthScreenings, handlePostHealthScreenings, handlePostMedicalEntry, handlePostDentalEntry, handlePostVisionEntry, handlePostWomenWellnessEntry, handlePostImmunizationEntry, handlePostOtherEntry, handleEditMedicalEntry, handleEditDentalEntry, handleEditVisionEntry, handleEditWomenWellnessEntry, handleEditImmunizationEntry, handleEditOtherEntry, handleDeleteMedicalEntry, handleDeleteDentalEntry, handleDeleteVisionEntry, handleDeleteWomenWellnessEntry, handleDeleteImmunizationEntry, handleDeleteOtherEntry} = require('../db/HSHelpers.js');
+const {handleGetCareTeam, handleAddProvider, handleEditProvider, handleDeleteProvider} = require('../db/careTeamHelpers.js');
 
 // user's info
 router.post('/', handleAddUserInfo)
@@ -54,13 +55,13 @@ router.delete('/healthscreenings/immunization/',  handleDeleteImmunizationEntry)
 router.delete('/healthscreenings/other/',  handleDeleteOtherEntry);
 
 // care team
-router.get('/careteam');
+router.get('/careteam', handleGetCareTeam);
 
-router.post('/careteam');
+router.post('/careteam/provider', handleAddProvider);
 
-router.put('/careteam');
+router.post('/careteam/provider/edit', handleEditProvider);
 
-router.delete('/careteam');
+router.delete('/careteam', handleDeleteProvider);
 
 
 module.exports = router;
