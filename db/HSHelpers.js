@@ -149,4 +149,208 @@ const handlePostOtherEntry = async (req, res) => {
   })
 };
 
-module.exports = {handleGetHealthScreenings, handlePostHealthScreenings, handlePostMedicalEntry, handlePostDentalEntry, handlePostVisionEntry, handlePostWomenWellnessEntry, handlePostImmunizationEntry, handlePostOtherEntry};
+const handleEditMedicalEntry = async (req, res) => {
+  let date = req.body.date;
+  let name = req.body.name;
+  let provider = req.body.provider;
+  let notes = req.body.notes;
+  let id = req.body.id;
+
+  MedicalEntry.bulkCreate(
+    [{id: id, date: date, name: name, provider: provider, notes: notes}],
+    {updateOnDuplicate: ['date', 'name', 'provider', 'notes']}
+  )
+  .then(data => {
+    res.send(data);
+  })
+  .catch(err => {
+    res.status(400).send(err);
+  })
+};
+
+const handleEditDentalEntry = async (req, res) => {
+  let date = req.body.date;
+  let name = req.body.name;
+  let provider = req.body.provider;
+  let notes = req.body.notes;
+  let id = req.body.id;
+
+  DentalEntry.bulkCreate(
+    [{id: id, date: date, name: name, provider: provider, notes: notes}],
+    {updateOnDuplicate: ['date', 'name', 'provider', 'notes']}
+  )
+  .then(data => {
+    res.send(data);
+  })
+  .catch(err => {
+    res.status(400).send(err);
+  })
+};
+
+const handleEditVisionEntry = async (req, res) => {
+  let date = req.body.date;
+  let name = req.body.name;
+  let provider = req.body.provider;
+  let notes = req.body.notes;
+  let id = req.body.id;
+
+  VisionEntry.bulkCreate(
+    [{id: id, date: date, name: name, provider: provider, notes: notes}],
+    {updateOnDuplicate: ['date', 'name', 'provider', 'notes']}
+  )
+  .then(data => {
+    res.send(data);
+  })
+  .catch(err => {
+    res.status(400).send(err);
+  })
+};
+
+const handleEditWomenWellnessEntry = async (req, res) => {
+  let date = req.body.date;
+  let name = req.body.name;
+  let provider = req.body.provider;
+  let notes = req.body.notes;
+  let id = req.body.id;
+
+  WomenWellnessEntry.bulkCreate(
+    [{id: id, date: date, name: name, provider: provider, notes: notes}],
+    {updateOnDuplicate: ['date', 'name', 'provider', 'notes']}
+  )
+  .then(data => {
+    res.send(data);
+  })
+  .catch(err => {
+    res.status(400).send(err);
+  })
+};
+
+const handleEditImmunizationEntry = async (req, res) => {
+  let date = req.body.date;
+  let name = req.body.name;
+  let provider = req.body.provider;
+  let notes = req.body.notes;
+  let id = req.body.id;
+
+  ImmunizationEntry.bulkCreate(
+    [{id: id, date: date, name: name, provider: provider, notes: notes}],
+    {updateOnDuplicate: ['date', 'name', 'provider', 'notes']}
+  )
+  .then(data => {
+    res.send(data);
+  })
+  .catch(err => {
+    res.status(400).send(err);
+  })
+};
+
+const handleEditOtherEntry = async (req, res) => {
+  let date = req.body.date;
+  let name = req.body.name;
+  let provider = req.body.provider;
+  let notes = req.body.notes;
+  let id = req.body.id;
+
+  OtherEntry.bulkCreate(
+    [{id: id, date: date, name: name, provider: provider, notes: notes}],
+    {updateOnDuplicate: ['date', 'name', 'provider', 'notes']}
+  )
+  .then(data => {
+    res.send(data);
+  })
+  .catch(err => {
+    res.status(400).send(err);
+  })
+};
+
+const handleDeleteMedicalEntry = async (req, res) => {
+  let id = req.query.id;
+  MedicalEntry.destroy({
+    where: {
+      id: id
+    }
+  })
+  .then(data => {
+    res.sendStatus(200);
+  })
+  .catch(err => {
+    res.status(400).send(err);
+  })
+};
+
+const handleDeleteDentalEntry = async (req, res) => {
+  let id = req.query.id;
+  DentalEntry.destroy({
+    where: {
+      id: id
+    }
+  })
+  .then(data => {
+    res.sendStatus(200);
+  })
+  .catch(err => {
+    res.status(400).send(err);
+  })
+};
+
+const handleDeleteVisionEntry = async (req, res) => {
+  let id = req.query.id;
+  VisionEntry.destroy({
+    where: {
+      id: id
+    }
+  })
+  .then(data => {
+    res.sendStatus(200);
+  })
+  .catch(err => {
+    res.status(400).send(err);
+  })
+};
+
+const handleDeleteWomenWellnessEntry = async (req, res) => {
+  let id = req.query.id;
+  WomenWellnessEntry.destroy({
+    where: {
+      id: id
+    }
+  })
+  .then(data => {
+    res.sendStatus(200);
+  })
+  .catch(err => {
+    res.status(400).send(err);
+  })
+};
+
+const handleDeleteImmunizationEntry = async (req, res) => {
+  let id = req.query.id;
+  ImmunizationEntry.destroy({
+    where: {
+      id: id
+    }
+  })
+  .then(data => {
+    res.sendStatus(200);
+  })
+  .catch(err => {
+    res.status(400).send(err);
+  })
+};
+
+const handleDeleteOtherEntry = async (req, res) => {
+  let id = req.query.id;
+  OtherEntry.destroy({
+    where: {
+      id: id
+    }
+  })
+  .then(data => {
+    res.sendStatus(200);
+  })
+  .catch(err => {
+    res.status(400).send(err);
+  })
+};
+
+module.exports = {handleGetHealthScreenings, handlePostHealthScreenings, handlePostMedicalEntry, handlePostDentalEntry, handlePostVisionEntry, handlePostWomenWellnessEntry, handlePostImmunizationEntry, handlePostOtherEntry, handleEditMedicalEntry, handleEditDentalEntry, handleEditVisionEntry, handleEditWomenWellnessEntry, handleEditImmunizationEntry, handleEditOtherEntry,  handleDeleteMedicalEntry, handleDeleteDentalEntry, handleDeleteVisionEntry, handleDeleteWomenWellnessEntry, handleDeleteImmunizationEntry, handleDeleteOtherEntry};

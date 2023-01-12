@@ -67,7 +67,6 @@ const handleEditProfile = async (req, res) => {
     {updateOnDuplicate: ['medicalconditions', 'allergies', 'bloodtype', 'weight', 'height']}
   )
   .then(data => {
-    console.log('it went well');
     res.send(data);
   })
   .catch(err => {
