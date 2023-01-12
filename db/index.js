@@ -16,11 +16,7 @@ const User = sequelize.define('user', {
     primaryKey: true,
     allowNull: false
   },
-  email: {
-    type: DataTypes.TEXT,
-    allowNull: false
-  },
-  password: {
+  uid: {
     type: DataTypes.TEXT,
     allowNull: false
   },
