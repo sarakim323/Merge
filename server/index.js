@@ -1,7 +1,7 @@
 const express = require('express');
 const path = require('path');
 const cors = require('cors');
-const HSRoutes = require('./HS-routes.js');
+const routes = require('./routes.js');
 
 const PORT = process.env.PORT || 3001;
 
@@ -13,6 +13,6 @@ app.use(cors());
 app.use(express.json());
 
 // routes
-app.use('/healthscreenings', HSRoutes);
+app.use('/user', routes);
 
 app.listen(PORT, () => console.log(`app listening on port ${PORT}`));

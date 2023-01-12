@@ -6,14 +6,6 @@
     "orientation": "portrait",
     "icon": "./assets/logo-color.png",
     "userInterfaceStyle": "light",
-    "plugins": [
-      [
-        "react-native-auth0",
-        {
-          "domain": "dev-3bi7ivsjmisvh51y.us.auth0.com"
-        }
-      ]
-    ],
     "splash": {
       "image": "./assets/logo-color.png",
       "resizeMode": "contain",
@@ -26,15 +18,13 @@
       "**/*"
     ],
     "ios": {
-      "supportsTablet": true,
-      "bundleIdentifier": "com.auth0samples"
+      "supportsTablet": true
     },
     "android": {
       "adaptiveIcon": {
         "foregroundImage": "./assets/logo-color.png",
         "backgroundColor": "#FFFFFF"
-      },
-      "package": "com.auth0samples"
+      }
     },
     "web": {
       "favicon": "./assets/logo-color.png"
