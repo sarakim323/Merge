@@ -1,46 +1,34 @@
 const express = require('express');
 const router = express.Router();
+const {handleAddUserInfo, handleGetProfile, handleAddProfile, handleEditProfile} = require('../db/profileHelpers.js');
 
-// get user's info
-router.get('/:user_id');
+// user's info
+router.post('/', handleAddUserInfo)
 
-// post user's info
-router.post('/:user_id');
+// health profile
+router.get('/profile', handleGetProfile);
 
-// update user's info
-router.put('/:user_id');
+router.post('/profile', handleAddProfile);
 
-// get health profile
-router.get('/:user_id/profile');
+router.post('/profile/update', handleEditProfile);
 
-// post health profile
-router.post('/:user_id/profile');
+// health screenings history
+router.get('/healthscreenings');
 
-// update health profile
-router.put('/:user_id/profile');
+router.post('/healthscreenings');
 
-// get health screenings history (all)
-router.get('/:user_id/healthscreenings');
+router.put('/healthscreenings');
 
-// post health screening history (1)
-router.post('/:user_id/healthscreenings');
+router.delete('/healthscreenings');
 
-// update health screenings history (1)
-router.put('/:user_id/healthscreenings');
+// care team
+router.get('/careteam');
 
-// delete health screening history (1)
-router.delete('/:user_id/healthscreenings');
+router.post('/careteam');
 
-// get care team (all)
-router.get('/:user_id/careteam');
+router.put('/careteam');
 
-// post provider (1)
-router.post('/:user_id/careteam');
+router.delete('/careteam');
 
-// update provider (1)
-router.put('/:user_id/careteam');
-
-// delete provider (1)
-router.delete('/:user_id/careteam');
 
 module.exports = router;

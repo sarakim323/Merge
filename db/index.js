@@ -13,8 +13,8 @@ sequelize.authenticate()
 const User = sequelize.define('user', {
   id: {
     type: DataTypes.INTEGER,
-    primaryKey: true,
-    allowNull: false
+    autoIncrement: true,
+    primaryKey: true
   },
   uid: {
     type: DataTypes.TEXT,
@@ -37,8 +37,8 @@ const User = sequelize.define('user', {
 const Profile = sequelize.define('profile', {
   id: {
     type: DataTypes.INTEGER,
-    primaryKey: true,
-    allowNull: false
+    autoIncrement: true,
+    primaryKey: true
   },
   medicalconditions: {
     type: DataTypes.TEXT
@@ -63,8 +63,7 @@ Profile.belongsTo(User);
 const HealthScreenings = sequelize.define('healthscreenings', {
   id: {
     type: DataTypes.INTEGER,
-    primaryKey: true,
-    allowNull: false
+    primaryKey: true
   }
 })
 
@@ -74,8 +73,8 @@ HealthScreenings.belongsTo(User);
 const MedicalEntry = sequelize.define('medical', {
   id: {
     type: DataTypes.INTEGER,
-    primaryKey: true,
-    allowNull: false
+    autoIncrement: true,
+    primaryKey: true
   },
   date: {
     type: DataTypes.TEXT,
@@ -99,8 +98,8 @@ MedicalEntry.belongsTo(HealthScreenings);
 const DentalEntry = sequelize.define('dental', {
   id: {
     type: DataTypes.INTEGER,
-    primaryKey: true,
-    allowNull: false
+    autoIncrement: true,
+    primaryKey: true
   },
   date: {
     type: DataTypes.TEXT,
@@ -124,8 +123,8 @@ DentalEntry.belongsTo(HealthScreenings);
 const VisionEntry = sequelize.define('vision', {
   id: {
     type: DataTypes.INTEGER,
-    primaryKey: true,
-    allowNull: false
+    autoIncrement: true,
+    primaryKey: true
   },
   date: {
     type: DataTypes.TEXT,
@@ -149,8 +148,8 @@ VisionEntry.belongsTo(HealthScreenings);
 const WomenWellnessEntry = sequelize.define('womenwellness', {
   id: {
     type: DataTypes.INTEGER,
-    primaryKey: true,
-    allowNull: false
+    autoIncrement: true,
+    primaryKey: true
   },
   date: {
     type: DataTypes.TEXT,
@@ -174,8 +173,8 @@ WomenWellnessEntry.belongsTo(HealthScreenings);
 const ImmunizationEntry = sequelize.define('immunization', {
   id: {
     type: DataTypes.INTEGER,
-    primaryKey: true,
-    allowNull: false
+    autoIncrement: true,
+    primaryKey: true
   },
   date: {
     type: DataTypes.TEXT,
@@ -199,8 +198,8 @@ ImmunizationEntry.belongsTo(HealthScreenings);
 const OtherEntry = sequelize.define('other', {
   id: {
     type: DataTypes.INTEGER,
-    primaryKey: true,
-    allowNull: false
+    autoIncrement: true,
+    primaryKey: true
   },
   date: {
     type: DataTypes.TEXT,
@@ -224,8 +223,8 @@ OtherEntry.belongsTo(HealthScreenings);
 const CareTeam = sequelize.define('careteam', {
   id: {
     type: DataTypes.INTEGER,
-    primaryKey: true,
-    allowNull: false
+    autoIncrement: true,
+    primaryKey: true
   }
 })
 
@@ -235,8 +234,8 @@ CareTeam.belongsTo(User);
 const Provider = sequelize.define('provider', {
   id: {
     type: DataTypes.INTEGER,
-    primaryKey: true,
-    allowNull: false
+    autoIncrement: true,
+    primaryKey: true
   },
   providername: {
     type: DataTypes.TEXT,
