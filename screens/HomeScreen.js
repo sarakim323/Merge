@@ -1,7 +1,22 @@
 import {useNavigation} from '@react-navigation/core'
 import React from 'react';
 import {StyleSheet, Text, View, TouchableOpacity} from 'react-native';
+import {createBottomTabNavigator} from '@react-navigation/bottom-tabs'
 import {auth} from '../firebase'
+import HealthScreeningsScreen from './HealthScreeningsScreen.js';
+import CareTeamScreen from './CareTeamScreen.js';
+
+const Tab = createBottomTabNavigator();
+
+// const MyTabs = () => {
+//   return (
+//     <Tab.Navigator>
+//       <Tab.Screen name="Home" component={HomeScreen}/>
+//       <Tab.Screen name="HealthScreenings" component={HealthScreeningsScreen} />
+//       <Tab.Screen name="CareTeam" component={CareTeamScreen} />
+//     </Tab.Navigator>
+//   )
+// }
 
 const HomeScreen = () => {
   const navigation = useNavigation();
@@ -21,6 +36,7 @@ const HomeScreen = () => {
       <TouchableOpacity onPress={handleSignOut} style={styles.button}>
         <Text style={styles.buttonText}>Sign out</Text>
       </TouchableOpacity>
+      {/* <MyTabs /> */}
     </View>
   )
 }
