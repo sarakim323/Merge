@@ -5,7 +5,6 @@ import {auth} from '../firebase';
 import axios from 'axios';
 
 const SignupScreen = () => {
-  const [userId, setUserid] = useState(0);
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [firstName, setFirstName] = useState('');
@@ -22,32 +21,23 @@ const SignupScreen = () => {
       lastName: lastName,
       dob: text
     };
-    const userProfile = {
-      medicalconditions: '',
-      allergies: '',
-      bloodtype: '',
-      weight: '',
-      height: '',
-      userId: userId
-    };
+
     axios.post('http://localhost:19001/user', userData)
     .then((res) => {
       console.log('successfully posted new user sign up info to DB');
-      axios.get('http://localhost:19001/user', uid)
+      axios.post('http://localhost:19001/user/profile', {
+        medicalconditions: '',
+        allergies: '',
+        bloodtype: '',
+        weight: '',
+        height: '',
+        userid: res.data.id
+      })
       .then((res) => {
-        console.log('retrieve userId', res);
-        setUserid(res.result.id);
-        console.log('user profile', userProfile);
-        // axios.post('http://localhost:19001/user/profile', userProfile)
-        // .then((res) => {
-        //   console.log('successfully posted new user profile to DB');
-        // })
-        // .catch((err) => {
-        //   console.log('failed to post new user profile to DB: ', err);
-        // })
+        console.log('successfully posted new user profile to DB');
       })
       .catch((err) => {
-        console.log('failed to get new user id', err);
+        console.log('failed to post new user profile to DB', err);
       })
     })
     .catch((err) => {

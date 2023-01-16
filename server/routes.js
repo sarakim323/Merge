@@ -15,7 +15,7 @@ router.post('/profile', handleAddProfile);
 
 router.post('/profile/edit', handleEditProfile);
 
-// health screenings history
+// health screenings historyß
 router.get('/healthscreenings', handleGetHealthScreenings);
 
 router.post('/healthscreenings', handlePostHealthScreenings);

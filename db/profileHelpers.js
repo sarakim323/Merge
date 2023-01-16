@@ -1,18 +1,16 @@
 const {User, Profile} = require('./index.js');
 
 const handleAddUserInfo = async (req, res) => {
-  console.log('req', req.body)
   let user = {
     uid: req.body.uid,
     firstName: req.body.firstName,
     lastName: req.body.lastName,
     DOB: req.body.dob
   }
-  console.log('user req in db', user);
   User.create(user)
   .then(data => {
-    console.log('user created in db', data);
-    res.send(data);
+    console.log('user created in db', data.dataValues);
+    res.send(data.dataValues);
   })
   .catch (err => {
     res.status(400).send(err);
@@ -21,8 +19,6 @@ const handleAddUserInfo = async (req, res) => {
 
 const handleGetUserInfo = async (req, res) => {
   const uid = req.query.uid;
-  console.log('req sent', req);
-  console.log('uid', uid);
   User.findall({
     where: {uid: uid},
     attributes: ['id', 'firstName', 'lastName', 'DOB']
@@ -60,12 +56,12 @@ const handleAddProfile = async (req, res) => {
     bloodtype: req.body.bloodtype,
     weight: req.body.weight,
     height: req.body.height,
-    userId: req.body.userId
+    userId: req.body.userid
   };
-
   Profile.create(profile)
   .then(data => {
-    res.send(data);
+    console.log('user profile created in db', data.dataValues);
+    res.send(data.dataValues);
   })
   .catch(err => {
     res.status(400).send(err);
