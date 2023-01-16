@@ -2,8 +2,11 @@ import React, {useState} from 'react';
 import {StyleSheet, Button, Text, TextInput, KeyboardAvoidingView, View, TouchableOpacity} from 'react-native';
 import RNDateTimePicker from '@react-native-community/datetimepicker';
 import {auth} from '../firebase';
+import axios from 'axios';
 
 const SignupScreen = () => {
+  const [uid, setUid] = useState('');
+  const [userId, setUserid] = useState(0);
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [firstName, setFirstName] = useState('');
@@ -13,7 +16,47 @@ const SignupScreen = () => {
   const [show, setShow] = useState(false);
   const [text, setText] = useState('MM/DD/YYYY');
 
-  const onChange = (event, selectedDate) => {
+  const PostUserInfo = () => {
+    const userData = {
+      uid: uid,
+      firstName: firstName,
+      lastName: lastName,
+      DOB: text
+    };
+    const userProfile = {
+      medicalconditions: '',
+      allergies: '',
+      bloodtype: '',
+      weight: '',
+      height: '',
+      userId: userId
+    };
+
+    axios.post('/user', userData)
+    .then((res) => {
+      console.log('successfully posted new user sign up info to DB', res);
+      // axios.get('/user', uid)
+      // .then((res) => {
+      //   console.log('retrieve userId', res);
+      //   setUserid(res.result.id);
+      //   axios.post('/user/profile', userProfile)
+      //   .then((res) => {
+      //     console.log('successfully posted new user profile to DB');
+      //   })
+      //   .catch((err) => {
+      //     console.log('failed to post new user profile to DB: ', err);
+      //   })
+      // })
+      // .catch((err) => {
+      //   console.log('failed to get new user id', err);
+      // })
+    })
+    .catch((err) => {
+      console.log('failed to post new user sign up info to DB: ', err);
+    })
+  }
+
+  const dob = (event, selectedDate) => {
     const currentDate = selectedDate || date;
     setShow(Platform.OS === 'ios');
     setDate(currentDate);
@@ -35,7 +78,8 @@ const SignupScreen = () => {
     .createUserWithEmailAndPassword(email, password)
     .then(userCredentials => {
       const user = userCredentials.user;
-      console.log('Registered with: ', user.email);
+      setUid(user.uid);
+      PostUserInfo();
     })
     .catch(err => alert(err.message));
   }
@@ -72,7 +116,7 @@ const SignupScreen = () => {
         />
         <Text style={styles.input} onPress={() => showMode('date')}>DOB: {text}</Text>
         {show &&
-          (<RNDateTimePicker testID='dateTimePicker' value={date} mode={mode} display="spinner" onChange={onChange}
+          (<RNDateTimePicker testID='dateTimePicker' value={date} mode={mode} display="spinner" onChange={dob}
         />)}
       </View>
       <View style={styles.buttonContainer}>

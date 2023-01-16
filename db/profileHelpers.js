@@ -17,6 +17,20 @@ const handleAddUserInfo = async (req, res) => {
   })
 }
 
+const handleGetUserInfo = async (req, res) => {
+  const uid = req.query.uid;
+  User.findall({
+    where: {uid: uid},
+    attributes: ['id', 'firstName', 'lastName', 'DOB']
+  })
+  .then(data => {
+    res.send({'uid': uid, 'results': data});
+  })
+  .catch(err => {
+    res.status(500).send(err);
+  })
+}
+
 const handleGetProfile = async (req, res) => {
   const uid = req.query.uid;
   User.findAll({
@@ -74,4 +88,4 @@ const handleEditProfile = async (req, res) => {
   })
 };
 
-module.exports = {handleAddUserInfo, handleGetProfile, handleAddProfile, handleEditProfile};
+module.exports = {handleAddUserInfo,  handleGetUserInfo, handleGetProfile, handleAddProfile, handleEditProfile};
