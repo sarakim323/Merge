@@ -3,7 +3,7 @@ const path = require('path');
 const cors = require('cors');
 const routes = require('./routes.js');
 
-const PORT = process.env.PORT || 3000;
+const PORT = process.env.PORT || 19001;
 
 require('dotenv').config();
 

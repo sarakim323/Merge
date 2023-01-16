@@ -5,7 +5,6 @@ import {auth} from '../firebase';
 import axios from 'axios';
 
 const SignupScreen = () => {
-  const [uid, setUid] = useState('');
   const [userId, setUserid] = useState(0);
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
@@ -16,12 +15,12 @@ const SignupScreen = () => {
   const [show, setShow] = useState(false);
   const [text, setText] = useState('MM/DD/YYYY');
 
-  const PostUserInfo = () => {
+  const PostUserInfo = (uid) => {
     const userData = {
       uid: uid,
       firstName: firstName,
       lastName: lastName,
-      DOB: text
+      dob: text
     };
     const userProfile = {
       medicalconditions: '',
@@ -31,25 +30,25 @@ const SignupScreen = () => {
       height: '',
       userId: userId
     };
-
-    axios.post('/user', userData)
+    axios.post('http://localhost:19001/user', userData)
     .then((res) => {
-      console.log('successfully posted new user sign up info to DB', res);
-      // axios.get('/user', uid)
-      // .then((res) => {
-      //   console.log('retrieve userId', res);
-      //   setUserid(res.result.id);
-      //   axios.post('/user/profile', userProfile)
-      //   .then((res) => {
-      //     console.log('successfully posted new user profile to DB');
-      //   })
-      //   .catch((err) => {
-      //     console.log('failed to post new user profile to DB: ', err);
-      //   })
-      // })
-      // .catch((err) => {
-      //   console.log('failed to get new user id', err);
-      // })
+      console.log('successfully posted new user sign up info to DB');
+      axios.get('http://localhost:19001/user', uid)
+      .then((res) => {
+        console.log('retrieve userId', res);
+        setUserid(res.result.id);
+        console.log('user profile', userProfile);
+        // axios.post('http://localhost:19001/user/profile', userProfile)
+        // .then((res) => {
+        //   console.log('successfully posted new user profile to DB');
+        // })
+        // .catch((err) => {
+        //   console.log('failed to post new user profile to DB: ', err);
+        // })
+      })
+      .catch((err) => {
+        console.log('failed to get new user id', err);
+      })
     })
     .catch((err) => {
       console.log('failed to post new user sign up info to DB: ', err);
@@ -77,9 +76,9 @@ const SignupScreen = () => {
     auth
     .createUserWithEmailAndPassword(email, password)
     .then(userCredentials => {
-      const user = userCredentials.user;
-      setUid(user.uid);
-      PostUserInfo();
+      const user = userCredentials.user.uid;
+      console.log('user uid: ', user);
+      PostUserInfo(user);
     })
     .catch(err => alert(err.message));
   }

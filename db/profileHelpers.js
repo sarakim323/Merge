@@ -8,8 +8,10 @@ const handleAddUserInfo = async (req, res) => {
     lastName: req.body.lastName,
     DOB: req.body.dob
   }
+  console.log('user req in db', user);
   User.create(user)
   .then(data => {
+    console.log('user created in db', data);
     res.send(data);
   })
   .catch (err => {
@@ -19,6 +21,8 @@ const handleAddUserInfo = async (req, res) => {
 
 const handleGetUserInfo = async (req, res) => {
   const uid = req.query.uid;
+  console.log('req sent', req);
+  console.log('uid', uid);
   User.findall({
     where: {uid: uid},
     attributes: ['id', 'firstName', 'lastName', 'DOB']
