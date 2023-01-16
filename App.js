@@ -3,9 +3,13 @@ import { StatusBar } from 'expo-status-bar';
 import { StyleSheet, Button, Text, View } from 'react-native';
 import { NavigationContainer } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
+import {createBottomTabNavigator} from '@react-navigation/bottom-tabs';
 import LoginScreen from './screens/LoginScreen';
-import HomeScreen from './screens/HomeScreen';
 import SignupScreen from './screens/SignupScreen';
+import HomeStack from './screens/HomeScreen';
+import HealthScreeningsScreen from './screens/HealthScreeningsScreen';
+import CareTeamScreen from './screens/CareTeamScreen';
+import SettingsScreen from './screens/SettingsScreen';
 
 const Stack = createNativeStackNavigator();
 
@@ -15,7 +19,7 @@ const App = () => {
       <Stack.Navigator>
         <Stack.Screen options={{ headerShown: false }} name="Login" component={LoginScreen} />
         <Stack.Screen name="Sign Up" component={SignupScreen} />
-        <Stack.Screen options={{ headerShown: false }} name="Home" component={HomeScreen} />
+        <Stack.Screen options={{ headerShown: false }} name="Home" component={HomeStack} />
       </Stack.Navigator>
     </NavigationContainer>
   );

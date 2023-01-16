@@ -3,15 +3,31 @@ import React, {useState, useEffect} from 'react';
 import {KeyboardAvoidingView, StyleSheet, Text, TextInput, View, TouchableOpacity} from 'react-native';
 import {auth} from '../firebase.js';
 
-const CareTeamScreen = () => {
+const Settings = () => {
+  const navigation = useNavigation();
+
+  const handleSignOut = () => {
+    auth
+    .signOut()
+    .then(() => {
+      navigation.replace("Login")
+    })
+    .catch(err => alert(err.message));
+  }
+
   return (
-    <View style={styles.container}>
-      <Text>Care Team</Text>
-    </View>
+    <KeyboardAvoidingView style={styles.container} behavior="padding">
+      <View>
+        <Text>Email: {auth.currentUser?.email}</Text>
+        <TouchableOpacity onPress={handleSignOut} style={styles.button}>
+          <Text style={styles.buttonText}>Sign out</Text>
+        </TouchableOpacity>
+      </View>
+    </KeyboardAvoidingView>
   )
 };
 
-export default CareTeamScreen;
+export default Settings;
 
 const styles = StyleSheet.create({
   container: {

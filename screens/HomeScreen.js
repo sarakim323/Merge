@@ -5,43 +5,30 @@ import {createBottomTabNavigator} from '@react-navigation/bottom-tabs'
 import {auth} from '../firebase'
 import HealthScreeningsScreen from './HealthScreeningsScreen.js';
 import CareTeamScreen from './CareTeamScreen.js';
-
-const Tab = createBottomTabNavigator();
-
-// const MyTabs = () => {
-//   return (
-//     <Tab.Navigator>
-//       <Tab.Screen name="Home" component={HomeScreen}/>
-//       <Tab.Screen name="HealthScreenings" component={HealthScreeningsScreen} />
-//       <Tab.Screen name="CareTeam" component={CareTeamScreen} />
-//     </Tab.Navigator>
-//   )
-// }
+import SettingsScreen from './SettingsScreen.js';
 
 const HomeScreen = () => {
-  const navigation = useNavigation();
-
-  const handleSignOut = () => {
-    auth
-    .signOut()
-    .then(() => {
-      navigation.replace("Login")
-    })
-    .catch(err => alert(err.message));
-  }
-
   return (
     <View style = {styles.container}>
       <Text>Email: {auth.currentUser?.email}</Text>
-      <TouchableOpacity onPress={handleSignOut} style={styles.button}>
-        <Text style={styles.buttonText}>Sign out</Text>
-      </TouchableOpacity>
-      {/* <MyTabs /> */}
     </View>
+  )
+};
+
+const Tab = createBottomTabNavigator();
+
+const HomeStack = () => {
+  return (
+    <Tab.Navigator>
+      <Tab.Screen name='Home Tab' component={HomeScreen} />
+      <Tab.Screen name='Health Screenings Tab' component={HealthScreeningsScreen} />
+      <Tab.Screen name='Care Team Tab' component={CareTeamScreen} />
+      <Tab.Screen name='Settings Tab' component={SettingsScreen} />
+   </Tab.Navigator>
   )
 }
 
-export default HomeScreen;
+export default HomeStack;
 
 const styles = StyleSheet.create({
   container: {
