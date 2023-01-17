@@ -5,7 +5,7 @@ import RNDateTimePicker from '@react-native-community/datetimepicker';
 import {auth} from '../firebase.js';
 import axios from 'axios';
 
-const ProfileEntry = () => {
+const Profile = () => {
   const [medicalConditions, updateMedicalConditions] = useState('');
   const [allergies, updateAllergies] = useState('');
   const [bloodtype, updateBloodtype] = useState('');
@@ -86,7 +86,7 @@ const ProfileEntry = () => {
   )
 };
 
-export default ProfileEntry;
+export default Profile;
 
 const styles = StyleSheet.create({
   container: {

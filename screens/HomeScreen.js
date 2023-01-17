@@ -5,10 +5,10 @@ import {createBottomTabNavigator} from '@react-navigation/bottom-tabs'
 import {auth} from '../firebase'
 import axios from 'axios';
 import Ionicons from 'react-native-vector-icons/Ionicons';
-import HealthScreeningsScreen from './HealthScreeningsScreen.js';
-import CareTeamScreen from './CareTeamScreen.js';
+import HealthScreeningsScreen from './HealthScreenings/HealthScreeningsScreen.js';
+import CareTeamScreen from './CareTeam/CareTeamScreen.js';
 import SettingsScreen from './SettingsScreen.js';
-import ProfileEntry from './ProfileEntryScreen.js';
+import Profile from './ProfileScreen.js';
 
 const HomeScreen = () => {
   const [dob, setDOB] = useState('');
@@ -67,7 +67,7 @@ const HomeScreen = () => {
         <GetProfile />
         <View style={styles.buttonContainer}>
           <TouchableOpacity
-          onPress={() => navigation.navigate('Health Profile', {setMedicalConditions: setMedicalConditions, setAllergies: setAllergies, setBloodtype: setBloodtype, setHeight: setHeight, setWeight: setWeight})}
+          onPress={() => navigation.navigate('Profile', {setMedicalConditions: setMedicalConditions, setAllergies: setAllergies, setBloodtype: setBloodtype, setHeight: setHeight, setWeight: setWeight})}
           style={[styles.button, styles.buttonOutline]}>
             <Text style={styles.buttonOutlineText}>Edit</Text>
           </TouchableOpacity>
