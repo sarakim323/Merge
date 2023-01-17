@@ -74,10 +74,10 @@ const handleEditProfile = async (req, res) => {
   let bloodtype = req.body.bloodtype;
   let weight = req.body.weight;
   let height = req.body.height;
-  let id = req.body.id;
+  let userId = req.body.userid;
 
   Profile.bulkCreate(
-    [{id: id, medicalconditions: medicalconditions, allergies: allergies, bloodtype: bloodtype, weight: weight, height: height}],
+    [{userId: userId, medicalconditions: medicalconditions, allergies: allergies, bloodtype: bloodtype, weight: weight, height: height}],
     {updateOnDuplicate: ['medicalconditions', 'allergies', 'bloodtype', 'weight', 'height']}
   )
   .then(data => {

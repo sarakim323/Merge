@@ -1,6 +1,6 @@
 import {useNavigation} from '@react-navigation/core'
 import React, {useState, useEffect} from 'react';
-import {KeyboardAvoidingView, StyleSheet, Text, View, TouchableOpacity} from 'react-native';
+import {KeyboardAvoidingView, StyleSheet, Text, View, TouchableOpacity, Alert} from 'react-native';
 import {createBottomTabNavigator} from '@react-navigation/bottom-tabs'
 import {auth} from '../firebase'
 import axios from 'axios';
@@ -8,6 +8,7 @@ import Ionicons from 'react-native-vector-icons/Ionicons';
 import HealthScreeningsScreen from './HealthScreeningsScreen.js';
 import CareTeamScreen from './CareTeamScreen.js';
 import SettingsScreen from './SettingsScreen.js';
+import ProfileEntry from './ProfileEntryScreen.js';
 
 const HomeScreen = () => {
   const [dob, setDOB] = useState('');
@@ -19,6 +20,14 @@ const HomeScreen = () => {
 
   let currentUser = auth.currentUser;
   let currentUserUid = currentUser.uid;
+  const navigation = useNavigation();
+
+  // useEffect(() => {
+  //   const focusHandler = navigation.addListener('focus', () => {
+  //     Alert.alert('Refreshed');
+  //   });
+  //   return focusHandler;
+  // }, [navigation]);
 
   const GetProfile = () => {
     axios.get(`http://localhost:19001/user/profile/${currentUserUid}`)
@@ -47,10 +56,6 @@ const HomeScreen = () => {
     )
   };
 
-  const handleEditProfile = () => {
-    // POST edit profile request
-  };
-
   return (
     <KeyboardAvoidingView style={styles.container} behavior="padding">
       <View style = {styles.container}>
@@ -62,7 +67,7 @@ const HomeScreen = () => {
         <GetProfile />
         <View style={styles.buttonContainer}>
           <TouchableOpacity
-          onPress={handleEditProfile}
+          onPress={() => navigation.navigate('Health Profile', {setMedicalConditions: setMedicalConditions, setAllergies: setAllergies, setBloodtype: setBloodtype, setHeight: setHeight, setWeight: setWeight})}
           style={[styles.button, styles.buttonOutline]}>
             <Text style={styles.buttonOutlineText}>Edit</Text>
           </TouchableOpacity>
@@ -74,7 +79,7 @@ const HomeScreen = () => {
 
 const Tab = createBottomTabNavigator();
 
-const HomeStack = () => {
+const SignInScreen = () => {
   return (
     <Tab.Navigator
       screenOptions={({route}) => ({
@@ -110,7 +115,7 @@ const HomeStack = () => {
   )
 }
 
-export default HomeStack;
+export default SignInScreen;
 
 const styles = StyleSheet.create({
   container: {

@@ -5,9 +5,14 @@ import {auth} from '../firebase.js';
 
 const HealthScreeningsScreen = () => {
   return (
-    <View style={styles.container}>
-      <Text>Health Screenings</Text>
-    </View>
+    <KeyboardAvoidingView style={styles.container} behavior="padding">
+      <View style = {styles.container}>
+        <Text style = {styles.header}>Hello, </Text>
+      </View>
+      <View style = {styles.profilecontainer}>
+        <Text style= {styles.profileheader}>Health Profile</Text>
+      </View>
+    </KeyboardAvoidingView>
   )
 };
 

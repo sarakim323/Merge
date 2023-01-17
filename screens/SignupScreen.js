@@ -79,6 +79,7 @@ const SignupScreen = () => {
   return (
     <KeyboardAvoidingView style={styles.container} behavior="padding">
       <View style={styles.inputContainer}>
+        <Text>Email:</Text>
         <TextInput
         placeholder="Email"
         value= {email}
@@ -86,6 +87,7 @@ const SignupScreen = () => {
         onChangeText={text => setEmail(text)}
         style={styles.input}
         />
+        <Text>Password:</Text>
         <TextInput
         placeholder="Password"
         value= {password}
@@ -94,19 +96,22 @@ const SignupScreen = () => {
         style={styles.input}
         secureTextEntry
         />
+        <Text>First Name:</Text>
         <TextInput
         placeholder="First Name"
         value= {firstName}
         onChangeText={text => setFirstName(text)}
         style={styles.input}
         />
+        <Text>Last Name</Text>
         <TextInput
         placeholder="Last Name"
         value= {lastName}
         onChangeText={text => setLastName(text)}
         style={styles.input}
         />
-        <Text style={styles.input} onPress={() => showMode('date')}>DOB: {text}</Text>
+        <Text>Date of Birth</Text>
+        <Text style={styles.input} onPress={() => showMode('date')}>{text}</Text>
         {show &&
           (<RNDateTimePicker testID='dateTimePicker' value={date} mode={mode} display="spinner" onChange={dob}
         />)}
