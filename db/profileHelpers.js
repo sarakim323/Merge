@@ -18,7 +18,7 @@ const handleAddUserInfo = async (req, res) => {
 }
 
 const handleGetUserInfo = async (req, res) => {
-  const uid = req.query.uid;
+  const uid = req.params.uid;
   User.findall({
     where: {uid: uid},
     attributes: ['id', 'firstName', 'lastName', 'DOB']
@@ -32,7 +32,7 @@ const handleGetUserInfo = async (req, res) => {
 }
 
 const handleGetProfile = async (req, res) => {
-  const uid = req.query.uid;
+  const uid = req.params.uid;
   User.findAll({
     where: {uid: uid},
     attributes: ['id', 'firstName', 'lastName', 'DOB'],

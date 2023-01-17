@@ -1,14 +1,56 @@
 import {useNavigation} from '@react-navigation/core'
-import React from 'react';
+import React, {useState, useEffect} from 'react';
 import {KeyboardAvoidingView, StyleSheet, Text, View, TouchableOpacity} from 'react-native';
 import {createBottomTabNavigator} from '@react-navigation/bottom-tabs'
 import {auth} from '../firebase'
+import axios from 'axios';
 import Ionicons from 'react-native-vector-icons/Ionicons';
 import HealthScreeningsScreen from './HealthScreeningsScreen.js';
 import CareTeamScreen from './CareTeamScreen.js';
 import SettingsScreen from './SettingsScreen.js';
 
 const HomeScreen = () => {
+  const [dob, setDOB] = useState('');
+  const [medicalConditions, setMedicalConditions] = useState('');
+  const [allergies, setAllergies] = useState('');
+  const [bloodtype, setBloodtype] = useState('');
+  const [height, setHeight] = useState('');
+  const [weight, setWeight] = useState('');
+
+  let currentUser = auth.currentUser;
+  let currentUserUid = currentUser.uid;
+
+  const GetProfile = () => {
+    axios.get(`http://localhost:19001/user/profile/${currentUserUid}`)
+    .then((res) => {
+      console.log('successfully retrieved user profile from DB', res.data.results[0]);
+      let results = res.data.results[0];
+      setDOB(results.dob);
+      setMedicalConditions(results.medicalconditions);
+      setAllergies(results.allergies);
+      setBloodtype(results.bloodtype);
+      setHeight(results.height);
+      setWeight(results.weight);
+    })
+    .catch((err) => {
+      console.log('failed to get user profile from DB', err)
+    });
+    return (
+      <View>
+        <Text style={styles.profiledetails}>DOB: {dob}</Text>
+        <Text style={styles.profiledetails}>Medical Conditions: {medicalConditions}</Text>
+        <Text style={styles.profiledetails}>Allergies: {allergies}</Text>
+        <Text style={styles.profiledetails}>Bloodtype: {bloodtype}</Text>
+        <Text style={styles.profiledetails}>Height: {height}</Text>
+        <Text style={styles.profiledetails}>Weight: {weight}</Text>
+      </View>
+    )
+  };
+
+  const handleEditProfile = () => {
+    // POST edit profile request
+  };
+
   return (
     <KeyboardAvoidingView style={styles.container} behavior="padding">
       <View style = {styles.container}>
@@ -16,7 +58,15 @@ const HomeScreen = () => {
         <Text>{auth.currentUser?.email}</Text>
       </View>
       <View style = {styles.profilecontainer}>
-        <Text>Health Profile</Text>
+        <Text style= {styles.profileheader}>Health Profile</Text>
+        <GetProfile />
+        <View style={styles.buttonContainer}>
+          <TouchableOpacity
+          onPress={handleEditProfile}
+          style={[styles.button, styles.buttonOutline]}>
+            <Text style={styles.buttonOutlineText}>Edit</Text>
+          </TouchableOpacity>
+        </View>
       </View>
     </KeyboardAvoidingView>
   )
@@ -94,11 +144,25 @@ const styles = StyleSheet.create({
   },
   profilecontainer: {
     flex: 1,
-    justifyContent: 'center',
+    justifyContent: 'flex-start',
     alignItems: 'center',
     borderWidth: 1,
     borderRadius: 20,
     borderColor: 'black',
     padding: 25,
+    marginBottom: 20,
+    width: 350
   },
+  profiledetails: {
+    color: 'black',
+    fontWeight: '500',
+    fontSize: 18,
+    marginBottom: 10
+  },
+  profileheader: {
+    color: 'black',
+    fontWeight: '500',
+    fontSize: 30,
+    marginBottom: 25
+  }
 });

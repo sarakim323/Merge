@@ -1,7 +1,7 @@
 const {CareTeam, Provider} = require('./index.js');
 
 const handleGetCareTeam = async (req, res) => {
-  const userId = req.query.userId;
+  const userId = req.params.userId;
   CareTeam.findAll({
     where: {userId: userId},
     attributes: ['id', 'userId'],
@@ -50,7 +50,7 @@ const handleAddProvider = async (req, res) => {
 };
 
 const handleDeleteProvider = async (req, res) => {
-  let id = req.query.id;
+  let id = req.params.id;
   Provider.destroy({
     where: {
       id: id

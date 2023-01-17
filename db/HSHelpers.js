@@ -1,7 +1,7 @@
 const {User, HealthScreenings, MedicalEntry, DentalEntry, VisionEntry, WomenWellnessEntry, ImmunizationEntry, OtherEntry} = require('./index.js');
 
 const handleGetHealthScreenings = async (req, res) => {
-  const userId = req.query.userId;
+  const userId = req.params.userId;
   HealthScreenings.findAll({
     where: {userId: userId},
     attributes: ['id', 'userId'],
@@ -264,7 +264,7 @@ const handleEditOtherEntry = async (req, res) => {
 };
 
 const handleDeleteMedicalEntry = async (req, res) => {
-  let id = req.query.id;
+  let id = req.params.id;
   MedicalEntry.destroy({
     where: {
       id: id
@@ -279,7 +279,7 @@ const handleDeleteMedicalEntry = async (req, res) => {
 };
 
 const handleDeleteDentalEntry = async (req, res) => {
-  let id = req.query.id;
+  let id = req.params.id;
   DentalEntry.destroy({
     where: {
       id: id
@@ -294,7 +294,7 @@ const handleDeleteDentalEntry = async (req, res) => {
 };
 
 const handleDeleteVisionEntry = async (req, res) => {
-  let id = req.query.id;
+  let id = req.params.id;
   VisionEntry.destroy({
     where: {
       id: id
@@ -309,7 +309,7 @@ const handleDeleteVisionEntry = async (req, res) => {
 };
 
 const handleDeleteWomenWellnessEntry = async (req, res) => {
-  let id = req.query.id;
+  let id = req.params.id;
   WomenWellnessEntry.destroy({
     where: {
       id: id
@@ -324,7 +324,7 @@ const handleDeleteWomenWellnessEntry = async (req, res) => {
 };
 
 const handleDeleteImmunizationEntry = async (req, res) => {
-  let id = req.query.id;
+  let id = req.params.id;
   ImmunizationEntry.destroy({
     where: {
       id: id
@@ -339,7 +339,7 @@ const handleDeleteImmunizationEntry = async (req, res) => {
 };
 
 const handleDeleteOtherEntry = async (req, res) => {
-  let id = req.query.id;
+  let id = req.params.id;
   OtherEntry.destroy({
     where: {
       id: id

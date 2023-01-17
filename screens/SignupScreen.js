@@ -1,5 +1,6 @@
 import React, {useState} from 'react';
 import {StyleSheet, Button, Text, TextInput, KeyboardAvoidingView, View, TouchableOpacity} from 'react-native';
+import {useNavigation} from '@react-navigation/core'
 import RNDateTimePicker from '@react-native-community/datetimepicker';
 import {auth} from '../firebase';
 import axios from 'axios';
@@ -13,6 +14,8 @@ const SignupScreen = () => {
   const [mode, setMode] = useState('date');
   const [show, setShow] = useState(false);
   const [text, setText] = useState('MM/DD/YYYY');
+
+  const navigation = useNavigation();
 
   const PostUserInfo = (uid) => {
     const userData = {

@@ -7,16 +7,16 @@ const {handleGetCareTeam, handlePostCareTeam, handleAddProvider, handleEditProvi
 // user's info
 router.post('/', handleAddUserInfo);
 
-router.get('/', handleGetUserInfo);
+router.get('/:uid', handleGetUserInfo);
 
-router.get('/profile', handleGetProfile);
+router.get('/profile/:uid', handleGetProfile);
 
 router.post('/profile', handleAddProfile);
 
 router.post('/profile/edit', handleEditProfile);
 
 // health screenings historyß
-router.get('/healthscreenings', handleGetHealthScreenings);
+router.get('/healthscreenings/:userId', handleGetHealthScreenings);
 
 router.post('/healthscreenings', handlePostHealthScreenings);
 
@@ -44,20 +44,20 @@ router.post('/healthscreenings/immunization/edit', handleEditImmunizationEntry);
 
 router.post('/healthscreenings/other/edit', handleEditOtherEntry);
 
-router.delete('/healthscreenings/medical/',  handleDeleteMedicalEntry);
+router.delete('/healthscreenings/medical/:id',  handleDeleteMedicalEntry);
 
-router.delete('/healthscreenings/dental/',  handleDeleteDentalEntry);
+router.delete('/healthscreenings/dental/:id',  handleDeleteDentalEntry);
 
-router.delete('/healthscreenings/vision/',  handleDeleteVisionEntry);
+router.delete('/healthscreenings/vision/:id',  handleDeleteVisionEntry);
 
-router.delete('/healthscreenings/womenwellness/',  handleDeleteWomenWellnessEntry);
+router.delete('/healthscreenings/womenwellness/:id',  handleDeleteWomenWellnessEntry);
 
-router.delete('/healthscreenings/immunization/',  handleDeleteImmunizationEntry);
+router.delete('/healthscreenings/immunization/:id',  handleDeleteImmunizationEntry);
 
-router.delete('/healthscreenings/other/',  handleDeleteOtherEntry);
+router.delete('/healthscreenings/other/:id',  handleDeleteOtherEntry);
 
 // care team
-router.get('/careteam', handleGetCareTeam);
+router.get('/careteam/:userId', handleGetCareTeam);
 
 router.post('/careteam', handlePostCareTeam);
 
@@ -65,6 +65,6 @@ router.post('/careteam/provider', handleAddProvider);
 
 router.post('/careteam/provider/edit', handleEditProvider);
 
-router.delete('/careteam/provider', handleDeleteProvider);
+router.delete('/careteam/provider/:id', handleDeleteProvider);
 
 module.exports = router;
