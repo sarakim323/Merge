@@ -1,6 +1,6 @@
 import {useNavigation} from '@react-navigation/core'
 import React, {useState, useEffect} from 'react';
-import {KeyboardAvoidingView, StyleSheet, Text, View, TouchableOpacity, Alert} from 'react-native';
+import {Image, KeyboardAvoidingView, StyleSheet, Text, View, TouchableOpacity, Alert} from 'react-native';
 import {createBottomTabNavigator} from '@react-navigation/bottom-tabs'
 import {auth} from '../firebase'
 import axios from 'axios';
@@ -22,12 +22,12 @@ const HomeScreen = () => {
   let currentUserUid = currentUser.uid;
   const navigation = useNavigation();
 
-  // useEffect(() => {
-  //   const focusHandler = navigation.addListener('focus', () => {
-  //     Alert.alert('Refreshed');
-  //   });
-  //   return focusHandler;
-  // }, [navigation]);
+  useEffect(() => {
+    const focusHandler = navigation.addListener('focus', () => {
+      Alert.alert('Refreshed');
+    });
+    return focusHandler;
+  }, [navigation]);
 
   const GetProfile = () => {
     axios.get(`http://localhost:19001/user/profile/${currentUserUid}`)
@@ -46,30 +46,37 @@ const HomeScreen = () => {
     });
     return (
       <View>
-        <Text style={styles.profiledetails}>DOB: {dob}</Text>
-        <Text style={styles.profiledetails}>Medical Conditions: {medicalConditions}</Text>
-        <Text style={styles.profiledetails}>Allergies: {allergies}</Text>
-        <Text style={styles.profiledetails}>Bloodtype: {bloodtype}</Text>
-        <Text style={styles.profiledetails}>Height: {height}</Text>
-        <Text style={styles.profiledetails}>Weight: {weight}</Text>
+        <Text style={styles.profiledetails}>DOB:</Text>
+        <Text style={styles.profiledetails}>{dob}</Text>
+        <Text style={styles.profiledetails}>Medical Conditions:</Text>
+        <Text style={styles.profiledetails}>{medicalConditions}</Text>
+        <Text style={styles.profiledetails}>Allergies:</Text>
+        <Text style={styles.profiledetails}>{allergies}</Text>
+        <Text style={styles.profiledetails}>Bloodtype:</Text>
+        <Text style={styles.profiledetails}>{bloodtype}</Text>
+        <Text style={styles.profiledetails}>Height:</Text>
+        <Text style={styles.profiledetails}>{height}</Text>
+        <Text style={styles.profiledetails}>Weight:</Text>
+        <Text style={styles.profiledetails}>{weight}</Text>
       </View>
     )
   };
 
   return (
     <KeyboardAvoidingView style={styles.container} behavior="padding">
-      <View style = {styles.container}>
-        <Text style = {styles.header}>Hello, </Text>
-        <Text>{auth.currentUser?.email}</Text>
+
+      <View style = {styles.headercontainer}>
+        <Image source={require('../assets/wave.png')} />
+        <Text style = {styles.header}>  Hello! </Text>
       </View>
+      <Text style= {styles.profileheader}>Health Profile</Text>
       <View style = {styles.profilecontainer}>
-        <Text style= {styles.profileheader}>Health Profile</Text>
         <GetProfile />
         <View style={styles.buttonContainer}>
           <TouchableOpacity
           onPress={() => navigation.navigate('Profile', {setMedicalConditions: setMedicalConditions, setAllergies: setAllergies, setBloodtype: setBloodtype, setHeight: setHeight, setWeight: setWeight})}
           style={[styles.button, styles.buttonOutline]}>
-            <Text style={styles.buttonOutlineText}>Edit</Text>
+            <Text style={styles.buttonText}>Edit</Text>
           </TouchableOpacity>
         </View>
       </View>
@@ -120,54 +127,69 @@ export default SignInScreen;
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    justifyContent: 'center',
-    alignItems: 'center',
+    backgroundColor: '#FFFFFF',
   },
   button: {
     backgroundColor: '#0782F9',
     width: '60%',
     padding: 15,
     borderRadius: 10,
-    alignItems: 'center',
     marginTop: 40,
   },
+  buttonContainer: {
+    flex: 1,
+    justifyContent: 'center',
+    marginLeft: 110,
+  },
   buttonOutline: {
-    backgroundColor: 'white',
-    marginTop: 5,
-    borderColor:'#0782F9',
+    backgroundColor: '#237693',
+    marginTop: 10,
+    borderColor:'#237693',
     borderWidth: 2,
   },
   buttonText: {
-    color: 'white',
+    color: '#FAF9F6',
     fontWeight: '700',
     fontSize: 16,
   },
   header: {
     color: 'black',
     fontWeight: '700',
-    fontSize: 40
+    fontSize: 35,
+  },
+  headercontainer: {
+    flex: 1,
+    flexDirection: 'row',
+    justifyContent: 'flex-start',
+    backgroundColor: '#FFFFFF',
+    marginTop: 30,
+    marginHorizontal: 35,
   },
   profilecontainer: {
-    flex: 1,
-    justifyContent: 'flex-start',
-    alignItems: 'center',
+    flex: 2,
     borderWidth: 1,
     borderRadius: 20,
-    borderColor: 'black',
+    borderColor: '#30a1c8',
     padding: 25,
-    marginBottom: 20,
-    width: 350
+    marginBottom: 50,
+    width: 350,
+    height: 600,
+    marginHorizontal: 35,
+    backgroundColor: '#45aed2',
+    justifyContent: 'center',
+    alignItems: 'flex-start',
   },
   profiledetails: {
-    color: 'black',
+    color: '#FAF9F6',
     fontWeight: '500',
     fontSize: 18,
-    marginBottom: 10
+    margin: 2
   },
   profileheader: {
     color: 'black',
     fontWeight: '500',
-    fontSize: 30,
-    marginBottom: 25
+    fontSize: 20,
+    marginBottom: 25,
+    marginLeft: 35
   }
 });

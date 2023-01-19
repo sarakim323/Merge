@@ -15,6 +15,8 @@ const Profile = () => {
   let currentUser = auth.currentUser;
   let currentUserUid = currentUser.uid;
   const navigation = useNavigation();
+  // const {setMedicalConditions, setAllergies, setBloodtype, setHeight, setWeight} = navigation.state.params;
+  const medcon = navigation.getParam(se)
 
   const handleEditProfile = () => {
     axios.get(`http://localhost:19001/user/profile/${currentUserUid}`)
@@ -29,6 +31,11 @@ const Profile = () => {
       })
       .then((res) => {
         console.log('edited profile successfully');
+        setMedicalConditions(medicalConditions);
+        setAllergies(allergies);
+        setBloodtype(bloodtype);
+        setWeight(weight);
+        setHeight(height);
         navigation.navigate('Home Tab');
       })
       .catch((err) => {console.log('failed to update user profile', err)});

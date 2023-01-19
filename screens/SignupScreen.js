@@ -79,7 +79,7 @@ const SignupScreen = () => {
   return (
     <KeyboardAvoidingView style={styles.container} behavior="padding">
       <View style={styles.inputContainer}>
-        <Text>Email:</Text>
+        <Text style={styles.text}>Email:</Text>
         <TextInput
         placeholder="Email"
         value= {email}
@@ -87,7 +87,7 @@ const SignupScreen = () => {
         onChangeText={text => setEmail(text)}
         style={styles.input}
         />
-        <Text>Password:</Text>
+        <Text style={styles.text}>Password:</Text>
         <TextInput
         placeholder="Password"
         value= {password}
@@ -96,21 +96,21 @@ const SignupScreen = () => {
         style={styles.input}
         secureTextEntry
         />
-        <Text>First Name:</Text>
+        <Text style={styles.text}>First Name:</Text>
         <TextInput
         placeholder="First Name"
         value= {firstName}
         onChangeText={text => setFirstName(text)}
         style={styles.input}
         />
-        <Text>Last Name</Text>
+        <Text style={styles.text}>Last Name</Text>
         <TextInput
         placeholder="Last Name"
         value= {lastName}
         onChangeText={text => setLastName(text)}
         style={styles.input}
         />
-        <Text>Date of Birth</Text>
+        <Text style={styles.text}>Date of Birth</Text>
         <Text style={styles.input} onPress={() => showMode('date')}>{text}</Text>
         {show &&
           (<RNDateTimePicker testID='dateTimePicker' value={date} mode={mode} display="spinner" onChange={dob}
@@ -132,8 +132,9 @@ export default SignupScreen;
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    justifyContent: 'center',
+    justifyContent: 'start',
     alignItems: 'center',
+    marginTop: 30,
   },
   inputContainer: {
     width: '80%'
@@ -143,16 +144,18 @@ const styles = StyleSheet.create({
     paddingHorizontal: 15,
     paddingVertical: 10,
     borderRadius: 10,
+    borderColor: '#7a7a78',
+    borderWidth: 0.2,
     marginTop: 5,
   },
   buttonContainer: {
-    width: '60%',
+    width: '40%',
     justifyContent: 'center',
     alignItems: 'center',
-    marginTop: 40,
+    marginTop: 35,
   },
   button: {
-    backgroundColor: '#0782F9',
+    backgroundColor: '#afafac',
     width: '100%',
     padding: 15,
     borderRadius: 10,
@@ -161,7 +164,7 @@ const styles = StyleSheet.create({
   buttonOutline: {
     backgroundColor: 'white',
     marginTop: 5,
-    borderColor:'#0782F9',
+    borderColor:'#afafac',
     borderWidth: 2,
   },
   buttonText: {
@@ -170,8 +173,11 @@ const styles = StyleSheet.create({
     fontSize: 16,
   },
   buttonOutlineText: {
-    color: '#0782F9',
+    color: '#7a7a78',
     fontWeight: '700',
     fontSize: 16,
   },
+  text: {
+    paddingVertical: 15
+  }
 });
