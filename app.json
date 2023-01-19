@@ -4,13 +4,13 @@
     "slug": "mvp",
     "version": "1.0.0",
     "orientation": "portrait",
-    "icon": "./assets/logo-color.png",
+    "icon": "./assets/mr.gif",
     "userInterfaceStyle": "light",
-    "splash": {
-      "image": "./assets/logo-icon.png",
-      "resizeMode": "contain",
-      "backgroundColor": "#4d7e3e"
-    },
+    // "splash": {
+    //   "image": "./assets/mr.gif",
+    //   "resizeMode": "contain"
+    //   "backgroundColor": "#4d7e3e"
+    // },
     "updates": {
       "fallbackToCacheTimeout": 0
     },

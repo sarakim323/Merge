@@ -110,9 +110,9 @@ const SignInScreen = () => {
           }
         },
         tabBarInactiveTintColor: 'gray',
-        tabBarActiveTintColor: 'tomato'
+        tabBarActiveTintColor: 'tomato',
+        tabBarShowLabel: false
       })}
-      tabBarOptions={{showLabel: false}}
     >
       <Tab.Screen name='Home Tab' component={HomeScreen} />
       <Tab.Screen name='Health Screenings Tab' component={HealthScreeningsScreen} />
