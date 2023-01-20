@@ -2,43 +2,14 @@ import {useNavigation} from '@react-navigation/core';
 import {useRoute} from '@react-navigation/native';
 import React, {useState, useEffect} from 'react';
 import {FlatList, KeyboardAvoidingView, Modal, StyleSheet, Text, TextInput, View, TouchableOpacity} from 'react-native';
-// import {auth} from '.../firebase';
 
-const HealthScreeningsEntry = () => {
+const HealthScreeningsEntry = ({ route }) => {
   const [data, setData] = useState([]);
-  const route = useRoute();
+  // const route = useRoute();
   const navigation = useNavigation();
 
-  const title = route.params.title;
-  const type = '';
-  // if (title == 'Medical') {
-  //   type === 'medicals';
-  // } else if (title == 'Dental') {
-  //   type === 'dentals';
-  // } else if (title == 'Vision') {
-  //   type === 'visions';
-  // } else if (title == 'Women\'s Wellness') {
-  //   type === 'womenwellnesses';
-  // } else if (title == 'Other') {
-  //   type === 'others';
-  // }
+  const title = route.params?.title;
 
-  // console.log('HS title and type should match up: ', title, type);
-
-  // const GetHealthScreenings = () => {
-  //   // console.log('type inside get: ', type);
-  //   axios.get(`http://localhost:19001/user/healthscreenings/${userId}`)
-  //   .then((data) => {
-  //     console.log('list of HS entries: ', data.results[0][type]);
-  //   })
-  //   .catch((err) => {
-  //     console.log('failed in receiving health screenings entries: ', err);
-  //   })
-  // };
-
-  // useEffect(() => {
-  //   GetHealthScreenings();
-  // }, [entries])
   const entries = {
     Medical: [
       {id: 1, date: '03/01/2020', name: 'Annual Physical Exam', provider: 'Dr. Shahina Shah, MD', notes: 'lab result - low TSH (0.32 mIU/L'},
@@ -68,6 +39,7 @@ const HealthScreeningsEntry = () => {
       {id: 17, date: '01/03/2023', name: 'Microdermabrasion', provider: 'Atomic Beauty', notes: ''},
     ]
   }
+
   const filteredentries = entries[title];
   // if (route.params.newEntry) {
   //   setData([...filteredentries, {key: data.id}]);
@@ -75,16 +47,10 @@ const HealthScreeningsEntry = () => {
   //   setData(filteredentries);
   // }
 
-  // console.log('new data: ', route.params.newEntry); // passing correctly
+  // console.log('new data: ', route.params.newEntry);
+
   useEffect(() => {
-    if (route.params.newEntry) {
-      filteredentries = filteredentries.push(route.params.newEntry); // filteredentries.push not a function
-      setData(filteredentries)
-      console.log('new data added', data)
-    } else {
       setData(filteredentries);
-      console.log('inital data', data);
-    }
     // const unsubscribe = navigation.addListener('focus', () => {
     //   if (route.params.newEntry) {
     //     console.log('new entry: ', route.params.newEntry);
@@ -96,7 +62,16 @@ const HealthScreeningsEntry = () => {
   }, [])
 
   const addEntry = () => {
-    navigation.navigate('Add Entry');
+    navigation.navigate('Add Entry', {submitHandler});
+  }
+
+  const submitHandler = (entry) => {
+    setData((prevData) => {
+      return [
+        {key: Math.random().toString(), date: entry.date, name: entry.name, provider: entry.provider, notes: entry.notes},
+        ...prevData,
+      ]
+    })
   }
 
   const deleteEntry = (id) => {

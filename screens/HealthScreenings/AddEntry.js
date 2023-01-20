@@ -3,18 +3,21 @@ import {useRoute} from '@react-navigation/native';
 import React, {useState, useEffect} from 'react';
 import {FlatList, KeyboardAvoidingView, Modal, StyleSheet, Text, TextInput, View, TouchableOpacity} from 'react-native';
 
-const AddEntry = () => {
-  const [id, setId] = useState(18);
+const AddEntry = ({ route }) => {
+  // const [id, setId] = useState(Math.random().toString());
   const [date, setDate] = useState('');
   const [name, setName] = useState('');
   const [provider, setProvider] = useState('');
   const [notes, setNotes] = useState('');
 
   const navigation = useNavigation();
+  // const {submitHandler} = props;
+  const submit = route.params.submitHandler;
 
   const handleAddEntry = () => {
-    let newEntry = {id: id, date: date, name: name, provider: provider, notes: notes};
-    navigation.navigate('Health Screenings Entry', {newEntry: newEntry});
+    let newEntry = {date: date, name: name, provider: provider, notes: notes};
+    submit(newEntry); // THIS IS NOT WORKIN - SUBMITHANDLER IS NOT A FUNC
+    navigation.navigate('Health Screenings Entry');
   };
 
   return (

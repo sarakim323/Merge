@@ -29,7 +29,7 @@ const Profile = () => {
         bloodtype: bloodtype,
         weight: weight,
         height: height,
-        userid: res.data.results[0].id
+        userid: res.data.results.id
       })
       .then((res) => {
         console.log('edited profile successfully');
