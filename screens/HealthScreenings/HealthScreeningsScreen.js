@@ -4,7 +4,11 @@ import {KeyboardAvoidingView, Image, StyleSheet, Text, TextInput, View, Touchabl
 // import {auth} from '.../firebase';
 
 const HealthScreeningsScreen = () => {
+  const [userID, setUserID] = useState('');
   const navigation = useNavigation();
+  // let currentUser = auth.currentUser;
+  // let currentUserUid = currentUser.uid;
+  // console.log('before get req uid: ', currentUserUid)
 
   const data = [
     {title: 'Medical'},
@@ -14,17 +18,27 @@ const HealthScreeningsScreen = () => {
     {title: 'Other'}
   ];
 
+  const GetUserID = () => {
+    axios.get(`http://localhost:19001/user/${currentUserUid}`)
+    .then((data) => {
+      console.log('current user id: ', data.results[0][type]);
+    })
+    .catch((err) => {
+      console.log('failed in receiving user id: ', err);
+    })
+  }
+
   return (
     <KeyboardAvoidingView style={styles.container} behavior="padding">
       <Image source={require('/Users/SaraKim/HackReactor/senior-phase/mvp/assets/mr.gif')} style= {styles.gifImage} />
       <Text style={styles.description}>Stay up to date with your health!</Text>
-      <FlatList data={data} renderItem={({item}) => (
+      <FlatList data={data} key={data.title} renderItem={({item}) => (
         <TouchableOpacity onPress={() => { navigation.navigate('Health Screenings Entry', {title: item.title})}}>
           <View style={styles.listcontainer}>
           <Text style={styles.listdetails}>{item.title}</Text>
           </View>
         </TouchableOpacity>
-      )} keyExtractor={item => item.id} key={data} />
+      )} keyExtractor={item => item.id} key={data.title} />
     </KeyboardAvoidingView>
   )
 };

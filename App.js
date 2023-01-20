@@ -20,8 +20,8 @@ const App = () => {
         <Stack.Screen name="Sign Up" component={SignupScreen} />
         <Stack.Screen options={{ headerShown: false }} name="Sign In" component={SignInScreen} />
         <Stack.Screen name="Profile" component={Profile} />
-        <Stack.Screen name="Health Screenings Entry" component={HealthScreeningsEntry} />
-        <Stack.Screen name="Provider" component={Provider} />
+        <Stack.Screen name="Health Screenings Entry" component={HealthScreeningsEntry} options={{title: 'Entries'}}/>
+        <Stack.Screen name="Provider" component={Provider} options={{title: 'Provider'}}/>
       </Stack.Navigator>
     </NavigationContainer>
   );
