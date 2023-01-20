@@ -7,6 +7,7 @@ import {FlatList, KeyboardAvoidingView, Modal, StyleSheet, Text, TextInput, View
 const HealthScreeningsEntry = () => {
   const [data, setData] = useState([]);
   const route = useRoute();
+  const navigation = useNavigation();
 
   const title = route.params.title;
   const type = '';
@@ -74,7 +75,8 @@ const HealthScreeningsEntry = () => {
   }, [])
 
   const addEntry = () => {
-    setData([...data, {key: data.date}]);
+    navigation.navigate('Add Entry');
+    // setData([...data, {key: data.date}]);
   }
 
   const deleteEntry = (id) => {
