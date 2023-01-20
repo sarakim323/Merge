@@ -3,18 +3,20 @@ import {useRoute} from '@react-navigation/native';
 import React, {useState, useEffect} from 'react';
 import {FlatList, KeyboardAvoidingView, Modal, StyleSheet, Text, TextInput, View, TouchableOpacity} from 'react-native';
 
-const AddProvider = () => {
-  const [id, setId] = useState(18);
+const AddProvider = ({ route }) => {
+  // const [id, setId] = useState(18);
   const [providerName, setproviderName] = useState('');
   const [specialty, setspecialty] = useState('');
   const [clinicname, setclinicname] = useState('');
   const [phonenumber, setphoneNumber] = useState('');
 
   const navigation = useNavigation();
+  const submit = route.params?.submitHandler;
 
   const handleAddEntry = () => {
-    let newEntry = {id: id, providerName: providerName, specialty: specialty, clinicname: clinicname, phonenumber: phonenumber};
-    navigation.navigate('Provider Entry', {newEntry: newEntry});
+    let newEntry = {providerName: providerName, specialty: specialty, clinicname: clinicname, phonenumber: phonenumber};
+    submit(newEntry);
+    navigation.navigate('Care Team Tab');
   };
 
   return (

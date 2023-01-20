@@ -16,7 +16,7 @@ const AddEntry = ({ route }) => {
 
   const handleAddEntry = () => {
     let newEntry = {date: date, name: name, provider: provider, notes: notes};
-    submit(newEntry); // THIS IS NOT WORKIN - SUBMITHANDLER IS NOT A FUNC
+    submit(newEntry);
     navigation.navigate('Health Screenings Entry');
   };
 

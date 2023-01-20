@@ -6,7 +6,7 @@ import {KeyboardAvoidingView, Button, StyleSheet, Image, Text, TextInput, View, 
 
 const CareTeamScreen = () => {
   const [data, setData] = useState([]);
-  const route = useRoute();
+  // const route = useRoute();
   const navigation = useNavigation();
 
   const entries = [
@@ -22,7 +22,16 @@ const CareTeamScreen = () => {
   }, [])
 
   const addEntry = () => {
-    navigation.navigate('Add Provider');
+    navigation.navigate('Add Provider', {submitHandler});
+  }
+
+  const submitHandler = (entry) => {
+    setData((prevData) => {
+      return [
+        {key: Math.random().toString(), providername: entry.providername, specialty: entry.specialty, clinicname: entry.clinicname, phonenumber: entry.phonenumber},
+        ...prevData,
+      ]
+    })
   }
 
   const deleteEntry = (id) => {
