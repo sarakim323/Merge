@@ -6,11 +6,11 @@
     "orientation": "portrait",
     "icon": "./assets/mr.gif",
     "userInterfaceStyle": "light",
-    // "splash": {
-    //   "image": "./assets/mr.gif",
-    //   "resizeMode": "contain"
-    //   "backgroundColor": "#4d7e3e"
-    // },
+    "splash": {
+      "image": "./assets/logo-icon.gif",
+      "resizeMode": "contain",
+      "backgroundColor": "#FAF9F6"
+    },
     "updates": {
       "fallbackToCacheTimeout": 0
     },

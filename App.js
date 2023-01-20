@@ -10,6 +10,7 @@ import Profile from './screens/ProfileScreen.js';
 import HealthScreeningsEntry from './screens/HealthScreenings/HealthScreeningsEntryScreen.js';
 import Provider from './screens/CareTeam/ProviderScreen.js';
 import AddEntry from './screens/HealthScreenings/AddEntry.js';
+import AddProvider from './screens/CareTeam/AddProvider.js';
 
 const Stack = createNativeStackNavigator();
 
@@ -24,6 +25,7 @@ const App = () => {
         <Stack.Screen name="Health Screenings Entry" component={HealthScreeningsEntry} options={{title: 'Entries'}}/>
         <Stack.Screen name="Add Entry" component={AddEntry} />
         <Stack.Screen name="Provider" component={Provider} options={{title: 'Provider'}}/>
+        <Stack.Screen name="Add Provider" component={AddProvider} />
       </Stack.Navigator>
     </NavigationContainer>
   );

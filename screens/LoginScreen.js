@@ -30,7 +30,7 @@ const LoginScreen = () => {
 
   return (
     <KeyboardAvoidingView style={styles.container} behavior="padding">
-      <Image source={require('../assets/logo-icon.png')} style={{width: '63%', height: '30%', resizeMode: 'center'}} />
+      <Image source={require('/Users/SaraKim/HackReactor/senior-phase/mvp/assets/team.gif')}/>
       <View style={styles.inputContainer}>
         <TextInput
         placeholder="Email"
@@ -72,9 +72,10 @@ const styles = StyleSheet.create({
     flex: 1,
     justifyContent: 'center',
     alignItems: 'center',
+    backgroundColor: '#FAF9F6'
   },
   inputContainer: {
-    paddingTop: 50,
+    paddingTop: 30,
     width: '80%'
   },
   input: {
@@ -90,7 +91,7 @@ const styles = StyleSheet.create({
     width: '80%',
     justifyContent: 'center',
     alignItems: 'center',
-    marginTop: 40,
+    marginTop: 30,
   },
   buttonContainer2: {
     width: '80%',

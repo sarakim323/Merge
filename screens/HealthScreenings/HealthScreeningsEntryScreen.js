@@ -68,15 +68,35 @@ const HealthScreeningsEntry = () => {
       {id: 17, date: '01/03/2023', name: 'Microdermabrasion', provider: 'Atomic Beauty', notes: ''},
     ]
   }
+  const filteredentries = entries[title];
+  // if (route.params.newEntry) {
+  //   setData([...filteredentries, {key: data.id}]);
+  // } else {
+  //   setData(filteredentries);
+  // }
 
-  useState(() => {
-    const filteredentries = entries[title];
-    setData(filteredentries);
+  // console.log('new data: ', route.params.newEntry); // passing correctly
+  useEffect(() => {
+    if (route.params.newEntry) {
+      filteredentries = filteredentries.push(route.params.newEntry); // filteredentries.push not a function
+      setData(filteredentries)
+      console.log('new data added', data)
+    } else {
+      setData(filteredentries);
+      console.log('inital data', data);
+    }
+    // const unsubscribe = navigation.addListener('focus', () => {
+    //   if (route.params.newEntry) {
+    //     console.log('new entry: ', route.params.newEntry);
+    //     filteredentries = filteredentries.push(route.params.newEntry);
+    //   }
+    //   setData(filteredentries);
+    // })
+    // return unsubscribe;
   }, [])
 
   const addEntry = () => {
     navigation.navigate('Add Entry');
-    // setData([...data, {key: data.date}]);
   }
 
   const deleteEntry = (id) => {
