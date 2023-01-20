@@ -1,4 +1,5 @@
-import {useNavigation} from '@react-navigation/core'
+import {useNavigation} from '@react-navigation/core';
+import {useRoute} from '@react-navigation/native';
 import React, {useState, useEffect} from 'react';
 import {KeyboardAvoidingView, StyleSheet, Text, TextInput, View, TouchableOpacity} from 'react-native';
 import RNDateTimePicker from '@react-native-community/datetimepicker';
@@ -14,13 +15,14 @@ const Profile = () => {
 
   let currentUser = auth.currentUser;
   let currentUserUid = currentUser.uid;
+
   const navigation = useNavigation();
-  // const {setMedicalConditions, setAllergies, setBloodtype, setHeight, setWeight} = navigation.state.params;
-  const medcon = navigation.getParam(se)
+  const route = useRoute();
 
   const handleEditProfile = () => {
     axios.get(`http://localhost:19001/user/profile/${currentUserUid}`)
     .then((res) => {
+      console.log('result: ', res.data)
       axios.post('http://localhost:19001/user/profile/edit', {
         medicalconditions: medicalConditions,
         allergies: allergies,
@@ -31,11 +33,11 @@ const Profile = () => {
       })
       .then((res) => {
         console.log('edited profile successfully');
-        setMedicalConditions(medicalConditions);
-        setAllergies(allergies);
-        setBloodtype(bloodtype);
-        setWeight(weight);
-        setHeight(height);
+        route.params.setMedicalConditions(medicalConditions);
+        route.params.setAllergies(allergies);
+        route.params.setBloodtype(bloodtype);
+        route.params.setWeight(weight);
+        route.params.setHeight(height);
         navigation.navigate('Home Tab');
       })
       .catch((err) => {console.log('failed to update user profile', err)});

@@ -1,4 +1,5 @@
-import {useNavigation} from '@react-navigation/core'
+import {useNavigation} from '@react-navigation/core';
+import { useIsFocused } from '@react-navigation/native';
 import React, {useState, useEffect} from 'react';
 import {Image, KeyboardAvoidingView, StyleSheet, Text, View, TouchableOpacity, Alert} from 'react-native';
 import {createBottomTabNavigator} from '@react-navigation/bottom-tabs'
@@ -21,50 +22,52 @@ const HomeScreen = () => {
   let currentUser = auth.currentUser;
   let currentUserUid = currentUser.uid;
   const navigation = useNavigation();
+  const focus = useIsFocused();
 
   useEffect(() => {
-    const focusHandler = navigation.addListener('focus', () => {
-      Alert.alert('Refreshed');
-    });
-    return focusHandler;
-  }, [navigation]);
+    if (focus == true) {
+      GetProfile();
+    }
+  }, [focus])
 
   const GetProfile = () => {
-    axios.get(`http://localhost:19001/user/profile/${currentUserUid}`)
-    .then((res) => {
-      console.log('successfully retrieved user profile from DB', res.data.results[0]);
-      let results = res.data.results[0];
-      setDOB(results.dob);
-      setMedicalConditions(results.medicalconditions);
-      setAllergies(results.allergies);
-      setBloodtype(results.bloodtype);
-      setHeight(results.height);
-      setWeight(results.weight);
-    })
-    .catch((err) => {
-      console.log('failed to get user profile from DB', err)
-    });
+    // axios.get(`http://localhost:19001/user/profile/${currentUserUid}`)
+    // .then((res) => {
+    //   console.log('successfully retrieved user profile from DB', res.data.results[0]);
+    //   let results = res.data.results[0];
+    //   setDOB(results.dob);
+    // })
+    // .catch((err) => {
+    //   console.log('failed to get user profile from DB', err)
+    // });
     return (
       <View>
-        <Text style={styles.profiledetails}>DOB:</Text>
-        <Text style={styles.profiledetails}>{dob}</Text>
         <Text style={styles.profiledetails}>Medical Conditions:</Text>
-        <Text style={styles.profiledetails}>{medicalConditions}</Text>
+        <View style={styles.inputContainer}>
+          <Text style={styles.input}>{medicalConditions}</Text>
+        </View>
         <Text style={styles.profiledetails}>Allergies:</Text>
-        <Text style={styles.profiledetails}>{allergies}</Text>
+        <View style={styles.inputContainer}>
+          <Text style={styles.input}>{allergies}</Text>
+        </View>
         <Text style={styles.profiledetails}>Bloodtype:</Text>
-        <Text style={styles.profiledetails}>{bloodtype}</Text>
+        <View style={styles.inputContainer}>
+          <Text style={styles.input}>{bloodtype}</Text>
+        </View>
         <Text style={styles.profiledetails}>Height:</Text>
-        <Text style={styles.profiledetails}>{height}</Text>
+        <View style={styles.inputContainer}>
+          <Text style={styles.input}>{height}</Text>
+        </View>
         <Text style={styles.profiledetails}>Weight:</Text>
-        <Text style={styles.profiledetails}>{weight}</Text>
+        <View style={styles.inputContainer}>
+          <Text style={styles.input}>{weight}</Text>
+        </View>
       </View>
     )
   };
 
   return (
     <KeyboardAvoidingView style={styles.container} behavior="padding">
-
       <View style = {styles.headercontainer}>
         <Image source={require('../assets/wave.png')} />
         <Text style = {styles.header}>  Hello! </Text>
@@ -74,7 +77,13 @@ const HomeScreen = () => {
         <GetProfile />
         <View style={styles.buttonContainer}>
           <TouchableOpacity
-          onPress={() => navigation.navigate('Profile', {setMedicalConditions: setMedicalConditions, setAllergies: setAllergies, setBloodtype: setBloodtype, setHeight: setHeight, setWeight: setWeight})}
+          onPress={() => navigation.navigate('Profile', {
+            setMedicalConditions: (a) => setMedicalConditions(a),
+            setAllergies: (b) => setAllergies(b),
+            setBloodtype: (c) => setBloodtype(c),
+            setHeight: (d) => setHeight(d),
+            setWeight: (e) => setWeight(e)
+          })}
           style={[styles.button, styles.buttonOutline]}>
             <Text style={styles.buttonText}>Edit</Text>
           </TouchableOpacity>
@@ -111,13 +120,15 @@ const SignInScreen = () => {
         },
         tabBarInactiveTintColor: 'gray',
         tabBarActiveTintColor: 'tomato',
-        tabBarShowLabel: false
+        tabBarShowLabel: false,
+        headerStyle: {backgroundColor: 'white'},
+        headerTintColor: '#252525'
       })}
     >
       <Tab.Screen name='Home Tab' component={HomeScreen} />
-      <Tab.Screen name='Health Screenings Tab' component={HealthScreeningsScreen} />
-      <Tab.Screen name='Care Team Tab' component={CareTeamScreen} />
-      <Tab.Screen name='Settings Tab' component={SettingsScreen} />
+      <Tab.Screen name='Health Screenings Tab' component={HealthScreeningsScreen} options={{title: 'Health Screenings'}}/>
+      <Tab.Screen name='Care Team Tab' component={CareTeamScreen} options={{title: 'Care Team'}} />
+      <Tab.Screen name='Settings Tab' component={SettingsScreen} options={{title: 'Settings'}}/>
    </Tab.Navigator>
   )
 }
@@ -127,7 +138,7 @@ export default SignInScreen;
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: '#FFFFFF',
+    backgroundColor: '#FAF9F6',
   },
   button: {
     backgroundColor: '#0782F9',
@@ -161,12 +172,26 @@ const styles = StyleSheet.create({
     flex: 1,
     flexDirection: 'row',
     justifyContent: 'flex-start',
-    backgroundColor: '#FFFFFF',
+    backgroundColor: '#FAF9F6',
     marginTop: 30,
     marginHorizontal: 35,
   },
+  inputContainer: {
+    marginVertical: 6,
+    width: 300,
+    backgroundColor: '#FFFFFF',
+    borderRadius: 10,
+    borderColor: '#237693',
+    borderWidth: 2,
+  },
+  input: {
+    paddingHorizontal: 15,
+    paddingVertical: 10,
+    marginTop: 5,
+    color: '#252525'
+  },
   profilecontainer: {
-    flex: 2,
+    flex: 6,
     borderWidth: 1,
     borderRadius: 20,
     borderColor: '#30a1c8',

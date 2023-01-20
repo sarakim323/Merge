@@ -1,6 +1,6 @@
 import {useNavigation} from '@react-navigation/core'
 import React, {useState, useEffect} from 'react';
-import {KeyboardAvoidingView, StyleSheet, Text, TextInput, View, TouchableOpacity, FlatList} from 'react-native';
+import {KeyboardAvoidingView, Image, StyleSheet, Text, TextInput, View, TouchableOpacity, FlatList} from 'react-native';
 // import {auth} from '.../firebase';
 
 const HealthScreeningsScreen = () => {
@@ -16,12 +16,13 @@ const HealthScreeningsScreen = () => {
 
   return (
     <KeyboardAvoidingView style={styles.container} behavior="padding">
-      <View style = {styles.container}>
-        <Text style = {styles.header}>Hello, </Text>
-      </View>
-      <FlatList style={styles.listcontainer} data={data} renderItem={({item}) => (
+      <Image source={require('/Users/SaraKim/HackReactor/senior-phase/mvp/assets/mr.gif')} style= {styles.gifImage} />
+      <Text style={styles.description}>Stay up to date with your health!</Text>
+      <FlatList data={data} renderItem={({item}) => (
         <TouchableOpacity onPress={() => { navigation.navigate('Health Screenings Entry', {title: item.title})}}>
+          <View style={styles.listcontainer}>
           <Text style={styles.listdetails}>{item.title}</Text>
+          </View>
         </TouchableOpacity>
       )} keyExtractor={item => item.id} key={data} />
     </KeyboardAvoidingView>
@@ -35,39 +36,38 @@ const styles = StyleSheet.create({
     flex: 1,
     justifyContent: 'center',
     alignItems: 'center',
+    backgroundColor: '#FAF9F6',
   },
-  button: {
-    backgroundColor: '#0782F9',
-    width: '60%',
-    padding: 15,
-    borderRadius: 10,
-    alignItems: 'center',
-    marginTop: 40,
+  description: {
+    color: 'black',
+    fontWeight: '500',
+    fontSize: 20,
+    marginTop: 10
   },
-  buttonOutline: {
-    backgroundColor: 'white',
-    marginTop: 5,
-    borderColor:'#0782F9',
-    borderWidth: 2,
-  },
-  buttonText: {
-    color: 'white',
-    fontWeight: '700',
-    fontSize: 16,
+  gifImage: {
+    resizeMode: 'contain',
+    width: '50%',
+    flex: 2,
+    marginTop: 30
   },
   listcontainer: {
     borderWidth: 1,
     borderRadius: 20,
-    borderColor: 'black',
-    padding: 25,
-    marginBottom: 20,
+    borderColor: '#30a1c8',
+    paddingHorizontal: 25,
+    marginTop: 40,
+    marginBottom: 10,
     width: 350,
+    backgroundColor: '#45aed2',
+    alignItems: 'center',
+    height: 50,
+    justifyContent: 'center'
   },
   listdetails: {
-    color: 'black',
-    fontWeight: '500',
+    color: '#FAF9F6',
+    fontWeight: '700',
     fontSize: 18,
-    marginBottom: 10
+    marginBottom: 10,
   },
   header: {
     color: 'black',

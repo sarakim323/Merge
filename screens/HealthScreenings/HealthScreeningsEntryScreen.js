@@ -5,9 +5,10 @@ import {KeyboardAvoidingView, StyleSheet, Text, TextInput, View, TouchableOpacit
 
 const HealthScreeningsEntry = () => {
   return (
-    <View style={styles.container}>
-      <Text>Entry</Text>
-    </View>
+    <KeyboardAvoidingView style={styles.container} behavior="padding">
+      <View style={styles.entryContainer}>
+      </View>
+    </KeyboardAvoidingView>
   )
 };
 
@@ -18,6 +19,7 @@ const styles = StyleSheet.create({
     flex: 1,
     justifyContent: 'center',
     alignItems: 'center',
+    backgroundColor: '#FAF9F6',
   },
   button: {
     backgroundColor: '#0782F9',

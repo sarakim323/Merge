@@ -1,6 +1,6 @@
 import {useNavigation} from '@react-navigation/core'
 import React, {useState, useEffect} from 'react';
-import {KeyboardAvoidingView, StyleSheet, Text, TextInput, View, TouchableOpacity} from 'react-native';
+import {Image, KeyboardAvoidingView, StyleSheet, Text, TextInput, View, TouchableOpacity} from 'react-native';
 import {auth} from '../firebase.js';
 
 const Settings = () => {
@@ -17,12 +17,14 @@ const Settings = () => {
 
   return (
     <KeyboardAvoidingView style={styles.container} behavior="padding">
-      <View style={styles.container}>
-        <Text>Email: {auth.currentUser?.email}</Text>
+      <View style={styles.subcontainer}>
+        <Text style={styles.header}>username</Text>
+        <Text style={styles.user}>{auth.currentUser?.email}</Text>
         <TouchableOpacity onPress={handleSignOut} style={styles.button}>
           <Text style={styles.buttonText}>Sign out</Text>
         </TouchableOpacity>
       </View>
+      <Image source={require('../assets/bye.gif')} style= {styles.gifImage} />
     </KeyboardAvoidingView>
   )
 };
@@ -34,24 +36,49 @@ const styles = StyleSheet.create({
     flex: 1,
     justifyContent: 'center',
     alignItems: 'center',
+    justifyContent: 'space-between',
+    backgroundColor: '#FAF9F6',
   },
   button: {
-    backgroundColor: '#0782F9',
-    width: '60%',
+    backgroundColor: '#237693',
+    borderColor: '#237693',
+    borderWidth: 2,
+    width: '100%',
     padding: 15,
     borderRadius: 10,
-    alignItems: 'center',
+    // alignItems: 'center',
     marginTop: 40,
   },
-  buttonOutline: {
-    backgroundColor: 'white',
-    marginTop: 5,
-    borderColor:'#0782F9',
-    borderWidth: 2,
-  },
   buttonText: {
-    color: 'white',
+    color: '#FAF9F6',
     fontWeight: '700',
     fontSize: 16,
   },
+  gifImage: {
+    resizeMode: 'contain',
+    width: '100%',
+    marginTop: 30
+  },
+  header: {
+    color: '#FAF9F6',
+    fontWeight: '700',
+    fontSize: 35,
+    marginBottom: 10
+  },
+  subcontainer: {
+    justifyContent: 'center',
+    alignItems: 'center',
+    borderWidth: 1,
+    borderRadius: 20,
+    borderColor: '#30a1c8',
+    padding: 25,
+    backgroundColor: '#45aed2',
+    marginTop: 100
+  },
+  user: {
+    color: '#FAF9F6',
+    fontWeight: '500',
+    fontSize: 20,
+    marginBottom: 25
+  }
 });

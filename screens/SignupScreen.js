@@ -162,9 +162,9 @@ const styles = StyleSheet.create({
     alignItems: 'center'
   },
   buttonOutline: {
-    backgroundColor: 'white',
+    backgroundColor: '#237693',
     marginTop: 5,
-    borderColor:'#afafac',
+    borderColor:'#237693',
     borderWidth: 2,
   },
   buttonText: {
@@ -173,7 +173,7 @@ const styles = StyleSheet.create({
     fontSize: 16,
   },
   buttonOutlineText: {
-    color: '#7a7a78',
+    color: 'white',
     fontWeight: '700',
     fontSize: 16,
   },
