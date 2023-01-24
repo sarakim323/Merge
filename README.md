@@ -15,3 +15,22 @@ Merge is an IOS mobile app that allows users to store their medical records in o
 
 ## Demo
 <a href="https://drive.google.com/file/d/1Q_YPHt7S82g8CqqyZPYdrhOoFYtPOCLM/view?usp=share_link">Full Demo Video</a>
+
+## Installation & Use
+1. Clone the repo
+```
+git clone https://github.com/sarakim323/Merge.git
+```
+2. Install all required packages
+```
+npm install
+```
+3. Start the Metro Bundler
+```
+npm start
+```
+4. Scan the QR code from Metro Bundler located in the terminal
+5. Start the server
+```
+npm run server-dev
+```
