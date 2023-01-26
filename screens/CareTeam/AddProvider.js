@@ -5,7 +5,7 @@ import {FlatList, KeyboardAvoidingView, Modal, StyleSheet, Text, TextInput, View
 
 const AddProvider = ({ route }) => {
   // const [id, setId] = useState(18);
-  const [providerName, setproviderName] = useState('');
+  const [providername, setprovidername] = useState('');
   const [specialty, setspecialty] = useState('');
   const [clinicname, setclinicname] = useState('');
   const [phonenumber, setphoneNumber] = useState('');
@@ -14,7 +14,7 @@ const AddProvider = ({ route }) => {
   const submit = route.params?.submitHandler;
 
   const handleAddEntry = () => {
-    let newEntry = {providerName: providerName, specialty: specialty, clinicname: clinicname, phonenumber: phonenumber};
+    let newEntry = {providername: providername, specialty: specialty, clinicname: clinicname, phonenumber: phonenumber};
     submit(newEntry);
     navigation.navigate('Care Team Tab');
   };
@@ -24,9 +24,9 @@ const AddProvider = ({ route }) => {
       <View style={styles.inputContainer}>
         <Text>Provider's Name:</Text>
         <TextInput
-          value= {providerName}
+          value= {providername}
           autoCapitalize="none"
-          onChangeText={text => setproviderName(text)}
+          onChangeText={text => setprovidername(text)}
           style={styles.input}
         />
       </View>
