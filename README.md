@@ -18,19 +18,29 @@ Merge is an IOS mobile app that allows users to store their medical records in o
 
 ## Component Details
 ### Login Screen
+A secure authentication system using Firebase was implemented to improve the login and signup experience for end users. Users can login to the app using their existing login credentials.
+
 <img src="https://media.giphy.com/media/LACtHXmzDj5wTb8Hkw/giphy.gif" />
 
 ### Signup Screen
+Users can sign up for an account using their existing email. In addition to an existing email, sign up requires a password, first name, last name, and date of birth. 
+
 <img src="https://media.giphy.com/media/CyVI5iZ25Yf4ox1H21/giphy.gif" />
 
 ### Home (Health Profile)
+The home screen contains the user's basic health profile that can be edited. Health profile consists of medical conditions, allergies, bloodtype, height, and weight.
+
 <img src="https://media.giphy.com/media/G3mb8KfwVwvGYeY69V/giphy.gif" />
 
 ### Health Screenings History
+Users can view, add, and delete routine health screenings history by category. Categories include medical, dental, vision, women's wellness, and other. Each category consists of health screening entries.
+
 <img src="https://media.giphy.com/media/5Cqw0Bq0q53yUQRKOP/giphy.gif" />
 <img src="https://media.giphy.com/media/xIUqRIet5FEJxuHnwr/giphy.gif" />
 
 ### Care Team
+Users can record a list of their healthcare providers with their respective contact information. A provider can be added and deleted from the existing list.
+
 <img src="https://media.giphy.com/media/U6NNXVcSCppt3KHKRd/giphy.gif" />
 
 ## Installation & Use
