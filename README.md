@@ -19,7 +19,7 @@ Merge is an IOS mobile app that allows users to store their medical records in o
 ## Component Details
 ### Login and Signup Screen
 ### Home (Health Profile)
-<img src="https://media.giphy.com/media/G3mb8KfwVwvGYeY69V/giphy.gif" height=500 width=300 />
+<img src="https://media.giphy.com/media/G3mb8KfwVwvGYeY69V/giphy.gif" />
 
 ### Health Screenings History
 ### Care Team
