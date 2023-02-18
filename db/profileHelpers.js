@@ -33,6 +33,7 @@ const handleGetUserInfo = async (req, res) => {
 
 const handleGetProfile = async (req, res) => {
   const uid = req.params.uid;
+  console.log('uid in db', uid);
   User.findAll({
     where: {uid: uid},
     attributes: ['id', 'firstName', 'lastName', 'DOB'],

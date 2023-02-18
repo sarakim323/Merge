@@ -22,17 +22,17 @@ const Profile = () => {
   const handleEditProfile = () => {
     axios.get(`http://localhost:19001/user/profile/${currentUserUid}`)
     .then((res) => {
-      console.log('result: ', res.data)
+      console.log('result: ', res.data.results[0].id);
       axios.post('http://localhost:19001/user/profile/edit', {
         medicalconditions: medicalConditions,
         allergies: allergies,
         bloodtype: bloodtype,
         weight: weight,
         height: height,
-        userid: res.data.results.id
+        userid: res.data.results[0].id
       })
       .then((res) => {
-        console.log('edited profile successfully');
+        console.log('edited profile successfully', res.data[0]);
         route.params.setMedicalConditions(medicalConditions);
         route.params.setAllergies(allergies);
         route.params.setBloodtype(bloodtype);

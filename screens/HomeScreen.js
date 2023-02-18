@@ -21,25 +21,35 @@ const HomeScreen = () => {
 
   let currentUser = auth.currentUser;
   let currentUserUid = currentUser.uid;
-  const navigation = useNavigation();
-  const focus = useIsFocused();
+  console.log('current User', currentUser.uid);
 
-  useEffect(() => {
-    if (focus == true) {
-      GetProfile();
-    }
-  }, [focus])
+  const navigation = useNavigation();
+  // const focus = useIsFocused();
+
+  // useEffect(() => {
+  //   if (focus == true) {
+  //     GetProfile();
+  //   }
+  // }, [focus])
 
   const GetProfile = () => {
-    // axios.get(`http://localhost:19001/user/profile/${currentUserUid}`)
-    // .then((res) => {
-    //   console.log('successfully retrieved user profile from DB', res.data.results[0]);
-    //   let results = res.data.results[0];
-    //   setDOB(results.dob);
-    // })
-    // .catch((err) => {
-    //   console.log('failed to get user profile from DB', err)
-    // });
+    axios.get(`http://localhost:19001/user/profile/${currentUserUid}`)
+    .then((res) => {
+      console.log('successfully retrieved user profile from DB', res.data);
+      let results = res.data.results[1]; // instead of replacing it added more to array
+      let profile = results['profile'];
+      console.log('profile', profile);
+      setDOB(results['DOB']);
+      setMedicalConditions(profile['medicalconditions']);
+      setAllergies(profile['allergies']);
+      setBloodtype(profile['bloodtype']);
+      setHeight(profile['height']);
+      setWeight(profile['weight']);
+    })
+    .catch((err) => {
+      console.log('failed to get user profile from DB', err)
+    });
+
     return (
       <View>
         <Text style={styles.profiledetails}>Medical Conditions:</Text>
