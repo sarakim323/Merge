@@ -18,7 +18,8 @@ const User = sequelize.define('user', {
   },
   uid: {
     type: DataTypes.TEXT,
-    allowNull: false
+    allowNull: false,
+    unique: true
   },
   firstName: {
     type: DataTypes.TEXT,
