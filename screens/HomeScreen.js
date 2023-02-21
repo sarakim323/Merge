@@ -36,7 +36,7 @@ const HomeScreen = () => {
     axios.get(`http://localhost:19001/user/profile/${currentUserUid}`)
     .then((res) => {
       console.log('successfully retrieved user profile from DB', res.data);
-      let results = res.data.results[1]; // instead of replacing it added more to array
+      let results = res.data.results[0]; // instead of replacing it added more to array
       let profile = results['profile'];
       console.log('profile', profile);
       setDOB(results['DOB']);

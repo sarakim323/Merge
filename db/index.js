@@ -1,6 +1,6 @@
 const {Sequelize, DataTypes} = require('sequelize');
 
-const sequelize = new Sequelize('mvp', 'postgres', 'rayra0501', {
+const sequelize = new Sequelize('mvp', 'SaraKim', 'rayra0501', {
   host: 'localhost',
   port: 5432,
   dialect: 'postgres'
@@ -56,6 +56,13 @@ const Profile = sequelize.define('profile', {
   height: {
     type: DataTypes.TEXT
   }
+}, {
+  indexes: [
+    {
+      unique: true,
+      fields: ['userId']
+    }
+  ]
 });
 
 User.hasOne(Profile);
