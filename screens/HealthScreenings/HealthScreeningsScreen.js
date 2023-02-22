@@ -11,11 +11,11 @@ const HealthScreeningsScreen = () => {
   // console.log('before get req uid: ', currentUserUid)
 
   const data = [
-    {title: 'Medical'},
-    {title: 'Dental'},
-    {title: 'Vision'},
-    {title: 'Women\'s Wellness'},
-    {title: 'Other'}
+    {id: 1, title: 'Medical'},
+    {id: 2, title: 'Dental'},
+    {id: 3, title: 'Vision'},
+    {id: 4, title: 'Women\'s Wellness'},
+    {id: 5, title: 'Other'}
   ];
 
   const GetUserID = () => {
@@ -32,7 +32,7 @@ const HealthScreeningsScreen = () => {
     <KeyboardAvoidingView style={styles.container} behavior="padding">
       <Image source={require('/Users/SaraKim/HackReactor/senior-phase/mvp/assets/mr.gif')} style= {styles.gifImage} />
       <Text style={styles.description}>Stay up to date with your health!</Text>
-      <FlatList data={data} key={data.title} renderItem={({item}) => (
+      <FlatList data={data} keyExtractor={(item) => item.id} renderItem={({item}) => (
         <TouchableOpacity onPress={() => { navigation.navigate('Health Screenings Entry', {title: item.title})}}>
           <View style={styles.listcontainer}>
           <Text style={styles.listdetails}>{item.title}</Text>

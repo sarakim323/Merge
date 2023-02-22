@@ -74,6 +74,13 @@ const HealthScreenings = sequelize.define('healthscreenings', {
     autoIncrement: true,
     primaryKey: true
   }
+}, {
+  indexes: [
+    {
+      unique: true,
+      fields: ['userId']
+    }
+  ]
 })
 
 User.hasOne(HealthScreenings);
@@ -235,6 +242,13 @@ const CareTeam = sequelize.define('careteam', {
     autoIncrement: true,
     primaryKey: true
   }
+}, {
+  indexes: [
+    {
+      unique: true,
+      fields: ['userId']
+    }
+  ]
 })
 
 User.hasOne(CareTeam);

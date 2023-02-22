@@ -57,7 +57,7 @@ const SignupScreen = () => {
     let fDate = (tempDate.getMonth() + 1) + '/' + tempDate.getDate() + '/' + tempDate.getFullYear();
     setText(fDate);
 
-    console.log('date: ', fDate);
+    // console.log('date: ', fDate);
   }
 
   const showMode = (currentMode) => {

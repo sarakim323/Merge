@@ -12,6 +12,7 @@ import SettingsScreen from './SettingsScreen.js';
 import Profile from './ProfileScreen.js';
 
 const HomeScreen = () => {
+  const [firstName, setfirstName] = useState('');
   const [dob, setDOB] = useState('');
   const [medicalConditions, setMedicalConditions] = useState('');
   const [allergies, setAllergies] = useState('');
@@ -32,24 +33,24 @@ const HomeScreen = () => {
   //   }
   // }, [focus])
 
-  const GetProfile = () => {
-    axios.get(`http://localhost:19001/user/profile/${currentUserUid}`)
-    .then((res) => {
-      console.log('successfully retrieved user profile from DB', res.data);
-      let results = res.data.results[0]; // instead of replacing it added more to array
-      let profile = results['profile'];
-      console.log('profile', profile);
-      setDOB(results['DOB']);
-      setMedicalConditions(profile['medicalconditions']);
-      setAllergies(profile['allergies']);
-      setBloodtype(profile['bloodtype']);
-      setHeight(profile['height']);
-      setWeight(profile['weight']);
-    })
-    .catch((err) => {
-      console.log('failed to get user profile from DB', err)
-    });
+  axios.get(`http://localhost:19001/user/profile/${currentUserUid}`)
+  .then((res) => {
+    console.log('successfully retrieved user profile from DB', res.data);
+    let results = res.data.results[0];
+    let profile = results['profile'];
+    setfirstName(results['firstName']);
+    setDOB(results['DOB']);
+    setMedicalConditions(profile['medicalconditions']);
+    setAllergies(profile['allergies']);
+    setBloodtype(profile['bloodtype']);
+    setHeight(profile['height']);
+    setWeight(profile['weight']);
+  })
+  .catch((err) => {
+    console.log('failed to get user profile from DB', err)
+  });
 
+  const GetProfile = () => {
     return (
       <View>
         <Text style={styles.profiledetails}>Medical Conditions:</Text>
@@ -80,7 +81,7 @@ const HomeScreen = () => {
     <KeyboardAvoidingView style={styles.container} behavior="padding">
       <View style = {styles.headercontainer}>
         <Image source={require('../assets/wave.png')} />
-        <Text style = {styles.header}>  Hello! </Text>
+        <Text style = {styles.header}>  Hello, {firstName}! </Text>
       </View>
       <Text style= {styles.profileheader}>Health Profile</Text>
       <View style = {styles.profilecontainer}>
