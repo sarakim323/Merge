@@ -28,8 +28,8 @@ const AddProvider = ({ route }) => {
         careteamId: careteamId
       })
       .then((res) => {
-        console.log('successfully added provider to db');
-        let newEntry = {providername: providername, specialty: specialty, clinicname: clinicname, phonenumber: phonenumber};
+        console.log('successfully added provider to db', res.data);
+        let newEntry = {id: res.data.id, providername: res.data.providername, specialty: res.data.specialty, clinicname: res.data.clinicname, phonenumber: res.data.phonenumber};
         submit(newEntry);
         navigation.navigate('Care Team Tab');
       })
