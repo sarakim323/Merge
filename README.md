@@ -50,11 +50,11 @@ git clone https://github.com/sarakim323/Merge.git
 ```
 2. Install all required packages
 ```
-npm install
+expo install
 ```
 3. Start the Metro Bundler
 ```
-npm start
+expo start
 ```
 4. Scan the QR code from Metro Bundler located in the terminal
 5. Start the server
