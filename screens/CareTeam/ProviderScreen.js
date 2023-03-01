@@ -1,80 +1,95 @@
-import {useNavigation} from '@react-navigation/core'
+import {useNavigation} from '@react-navigation/core';
+import {useRoute} from '@react-navigation/native';
 import React, {useState, useEffect} from 'react';
 import {KeyboardAvoidingView, StyleSheet, Text, TextInput, View, TouchableOpacity} from 'react-native';
 import {auth} from '../../firebase.js';
+import axios from 'axios';
 
-const Provider = (props) => {
-  const [providerName, setProviderName] = ('');
-  const [specialty, setSpecialty] = ('');
-  const [clinicName, setClinicName] = ('');
-  const [phoneNumber, setphoneNumber] = ('');
-  // const updateEntry = () => {
-  //   axios.post(`http://localhost:19001/user/careteam/provider/edit`, {
-  //     providername: providername,
-  //     specialty: specialty,
-  //     clinicname: clinicname,
-  //     phonenumber: phonenumber,
-  //     id: id
-  //   })
-  //   .then((res) => {
-  //     console.log('updated provider info');
-  //   })
-  //   .catch((res) => {
-  //     console.log('failed to update provider info', err);
-  //   })
-  // }
+const Provider = () => {
+  const [providername, setprovidername] = useState('');
+  const [specialty, setspecialty] = useState('');
+  const [clinicname, setclinicname] = useState('');
+  const [phonenumber, setphoneNumber] = useState('');
+
+  const navigation = useNavigation();
+  const route = useRoute();
+  const physicianId = route.params.physicianId;
+
+  const handleEditProvider = () => {
+    axios.post(`http://localhost:19001/user/careteam/provider/edit`, {
+      providername: providername,
+      specialty: specialty,
+      clinicname: clinicname,
+      phonenumber: phonenumber,
+      id: physicianId
+    })
+    .then((res) => {
+      console.log('updated provider info', res.data);
+      navigation.navigate('Care Team Tab');
+      // retrieve new data
+    })
+    .catch((res) => {
+      console.log('failed to update provider info', err);
+    })
+  }
+
   return (
-    <View>Did it work</View>
-    // <KeyboardAvoidingView style={styles.container} behavior="padding">
-    //   <View style={styles.inputContainer}>
-    //     <Text>Provider's Name:</Text>
-    //     <TextInput
-    //       value= {medicalConditions}
-    //       autoCapitalize="none"
-    //       onChangeText={text => updateMedicalConditions(text)}
-    //       style={styles.input}
-    //     />
-    //     <Text>Specialty:</Text>
-    //     <TextInput
-    //       value= {allergies}
-    //       autoCapitalize="none"
-    //       onChangeText={text => updateAllergies(text)}
-    //       style={styles.input}
-    //     />
-    //     <Text>Clinic's Name:</Text>
-    //     <TextInput
-    //       value= {bloodtype}
-    //       autoCapitalize="none"
-    //       onChangeText={text => updateBloodtype(text)}
-    //       style={styles.input}
-    //     />
-    //     <Text>Phone Number:</Text>
-    //     <TextInput
-    //       value= {height}
-    //       autoCapitalize="none"
-    //       onChangeText={text => updateHeight(text)}
-    //       style={styles.input}
-    //     />
-    //   </View>
-    //   <View style={styles.buttonContainer}>
-    //       <TouchableOpacity
-    //       onPress={handleEditProfile}
-    //       style={[styles.button, styles.buttonOutline]}>
-    //         <Text style={styles.buttonOutlineText}>Save</Text>
-    //       </TouchableOpacity>
-    //   </View>
-    // </KeyboardAvoidingView>
+    <KeyboardAvoidingView style={styles.container} behavior="padding">
+      <View style={styles.inputContainer}>
+        <Text>Provider's Name:</Text>
+        <TextInput
+          value= {providername}
+          autoCapitalize="none"
+          onChangeText={text => setprovidername(text)}
+          style={styles.input}
+        />
+      </View>
+      <View style={styles.inputContainer}>
+        <Text>Specialty:</Text>
+        <TextInput
+          value= {specialty}
+          autoCapitalize="none"
+          onChangeText={text => setspecialty(text)}
+          style={styles.input}
+        />
+      </View>
+      <View style={styles.inputContainer}>
+        <Text>Clinic Name</Text>
+        <TextInput
+          value= {clinicname}
+          autoCapitalize="none"
+          onChangeText={text => setclinicname(text)}
+          style={styles.input}
+        />
+      </View>
+      <View style={styles.inputContainer}>
+        <Text>Phone Number</Text>
+        <TextInput
+          value= {phonenumber}
+          autoCapitalize="none"
+          onChangeText={text => setphoneNumber(text)}
+          style={styles.input}
+        />
+      </View>
+      <View style={styles.buttonContainer}>
+          <TouchableOpacity
+          onPress={handleEditProvider}
+          style={[styles.button, styles.buttonOutline]}>
+            <Text style={styles.buttonOutlineText}>Save</Text>
+          </TouchableOpacity>
+      </View>
+    </KeyboardAvoidingView>
   )
 };
 
 export default Provider;
+
 
 const styles = StyleSheet.create({
   container: {
     flex: 1,
     justifyContent: 'center',
     alignItems: 'center',
-    backgroundColor: '#FAF9F6',
   },
   button: {
     backgroundColor: '#0782F9',
@@ -83,6 +98,13 @@ const styles = StyleSheet.create({
     borderRadius: 10,
     alignItems: 'center',
     marginTop: 40,
+  },
+  buttonContainer: {
+    width: '60%',
+    justifyContent: 'center',
+    alignItems: 'center',
+    marginTop: 40,
+    marginBottom: 70
   },
   buttonOutline: {
     backgroundColor: 'white',
@@ -94,5 +116,16 @@ const styles = StyleSheet.create({
     color: 'white',
     fontWeight: '700',
     fontSize: 16,
+  },
+  inputContainer: {
+    width: '80%'
+  },
+  input: {
+    backgroundColor: 'white',
+    paddingHorizontal: 15,
+    paddingVertical: 10,
+    borderRadius: 10,
+    marginTop: 5,
+    marginBottom: 20
   },
 });

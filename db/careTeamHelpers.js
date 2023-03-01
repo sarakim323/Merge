@@ -73,7 +73,7 @@ const handleEditProvider = async (req, res) => {
 
   Provider.bulkCreate(
     [{id: id, providername: providername, specialty: specialty, clinicname: clinicname, phonenumber: phonenumber}],
-    {updateOnDuplicate: ['providername', 'specialty', 'clinicname', 'phonenumber', 'careteamId']}
+    {updateOnDuplicate: ['providername', 'specialty', 'clinicname', 'phonenumber']}
   )
   .then(data => {
     res.send(data);

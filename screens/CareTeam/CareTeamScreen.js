@@ -99,7 +99,9 @@ const CareTeamScreen = () => {
     <KeyboardAvoidingView style={styles.container} behavior="padding">
       <Text style={styles.description}>Click on the entry to delete!</Text>
       <FlatList data={data} keyExtractor={(item) => item.key} renderItem={({item}) =>
-        <TouchableOpacity style={styles.entryContainer} onPress={() => deleteEntry(item.id)} >
+        <TouchableOpacity style={styles.entryContainer} onPress={() => navigation.navigate('Provider', {
+          physicianId: item.id
+        })} >
           <Text style={styles.item}>{item.providername}</Text>
           <Text style={styles.item}>{item.specialty}</Text>
           <Text style={styles.item}>{item.clinicname}</Text>
@@ -211,22 +213,3 @@ const styles = StyleSheet.create({
     fontSize: 25
   }
 });
-
-// const navigation = useNavigation();
-
-// const [items, setItems] = useState([]);
-
-// const addItem = () => {
-//   setItems([...items, {key: items.length.toString()}]);
-// }
-{/* <KeyboardAvoidingView style={styles.container} behavior="padding">
-<View style = {styles.container}>
-<Text style = {styles.header}>Hello, </Text>
-</View>
-<FlatList style={styles.listcontainer} data={items} renderItem={({item}) => (
-<TouchableOpacity onPress={() => { navigation.navigate('Provider', {title: item.key})}}>
-  <Text style={styles.listdetails}>{item.key}</Text>
-</TouchableOpacity>
-)} keyExtractor={item => item.id} key={items} />
-<Button style={styles.button} onPress={addItem} title="Add" />
-</KeyboardAvoidingView> */}
