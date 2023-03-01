@@ -21,7 +21,7 @@ const CareTeamScreen = () => {
   //     {id: 5, providername: 'Dr. Samuel Banks, MD', specialty: 'optometry', clinicname: 'First Eye Care', phonenumber: '246-813-5792'}
   // ];
   const entries = [
-    {id: 1, providername: '(Example) Dr. Pearson, MD', specialty: 'Cardiology', clinicname: 'Advanced Heart Care', phonenumber: '(123)456-7890'
+    {key: 1, providername: '(Example) Dr. Pearson, MD', specialty: 'Cardiology', clinicname: 'Advanced Heart Care', phonenumber: '(123)456-7890'
     }
   ]
 
@@ -47,7 +47,12 @@ const CareTeamScreen = () => {
             console.log('failed to create new careteam id')
           })
         } else {
-          setData(res.data.results);
+          res.data.results[0]['providers'].length === 0
+          if(res.data.results[0]['providers'].length === 0) {
+            setData(entries);
+          } else {
+            setData(res.data.results[0]['providers']);
+          }
         }
       })
       .catch((err) => {
@@ -75,15 +80,27 @@ const CareTeamScreen = () => {
   }
 
   const deleteEntry = (id) => {
-    setData((prev) => {
-      return prev.filter(entry => entry.id != id)
+    console.log('desired deleted id', id);
+    axios.delete(`http://localhost:19001/user/careteam/provider/${id}`, {
+      id: id
+    })
+    .then((res) => {
+      setData((prev) => {
+        return prev.filter(entry => entry.id != id)
+      })
+      console.log('successfully deleted physician entry');
+    })
+    .catch((err) => {
+      console.log('failed to delete physician entry', err);
     })
   }
+
   return (
     <KeyboardAvoidingView style={styles.container} behavior="padding">
       <Text style={styles.description}>Click on the entry to delete!</Text>
       <FlatList data={data} keyExtractor={(item) => item.key} renderItem={({item}) =>
         <TouchableOpacity style={styles.entryContainer} onPress={() => deleteEntry(item.id)} >
+          <Text style={styles.item}>{item.providername}</Text>
           <Text style={styles.item}>{item.providername}</Text>
           <Text style={styles.item}>{item.specialty}</Text>
           <Text style={styles.item}>{item.clinicname}</Text>

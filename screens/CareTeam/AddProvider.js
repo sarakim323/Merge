@@ -18,9 +18,6 @@ const AddProvider = ({ route }) => {
     axios.get(`http://localhost:19001/user/careteam/${route.params.userId}`)
     .then((res) => {
       console.log('successfully retrieved careteam id', res.data.results[0]);
-      // let newEntry = {providername: providername, specialty: specialty, clinicname: clinicname, phonenumber: phonenumber};
-      // submit(newEntry);
-      // navigation.navigate('Care Team Tab');
       let result = res.data.results[0];
       let careteamId = result['id'];
       axios.post(`http://localhost:19001/user/careteam/provider`, {
@@ -32,6 +29,8 @@ const AddProvider = ({ route }) => {
       })
       .then((res) => {
         console.log('successfully added provider to db');
+        let newEntry = {providername: providername, specialty: specialty, clinicname: clinicname, phonenumber: phonenumber};
+        submit(newEntry);
         navigation.navigate('Care Team Tab');
       })
       .catch((err) => {
