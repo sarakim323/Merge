@@ -15,19 +15,32 @@ const AddProvider = ({ route }) => {
   const submit = route.params?.submitHandler;
 
   const handleAddEntry = () => {
-    // you need userId not uid
-    // maybe store UID and userId in the index.js so child components can access them
     axios.get(`http://localhost:19001/user/careteam/${route.params.userId}`)
     .then((res) => {
-      console.log('successfully retrieved careteam id', res.data);
-      let newEntry = {providername: providername, specialty: specialty, clinicname: clinicname, phonenumber: phonenumber};
-      submit(newEntry);
-      navigation.navigate('Care Team Tab');
+      console.log('successfully retrieved careteam id', res.data.results[0]);
+      // let newEntry = {providername: providername, specialty: specialty, clinicname: clinicname, phonenumber: phonenumber};
+      // submit(newEntry);
+      // navigation.navigate('Care Team Tab');
+      let result = res.data.results[0];
+      let careteamId = result['id'];
+      axios.post(`http://localhost:19001/user/careteam/provider`, {
+        providername: providername,
+        specialty: specialty,
+        clinicname: clinicname,
+        phonenumber: phonenumber,
+        careteamId: careteamId
+      })
+      .then((res) => {
+        console.log('successfully added provider to db');
+        navigation.navigate('Care Team Tab');
+      })
+      .catch((err) => {
+        console.log('failed to add provider to db', err);
+      })
     })
     .catch((err) => {
       console.log('failed to retrieve care team id', err);
     })
-    // axios.post(`http://localhost:19001/user/careteam`)
   };
 
   return (

@@ -32,17 +32,16 @@ const CareTeamScreen = () => {
       let results = res.data.results[0];
       let id = results['id'];
       setUserId(id);
-      // setData(entries);
       axios.get(`http://localhost:19001/user/careteam/${id}`)
       .then((res) => {
         console.log('successfully retrieved careteam list', res.data.results);
         if(res.data.results.length === 0) {
-          // create care team
           axios.post(`http://localhost:19001/user/careteam`, {
             userId: id
           })
           .then((res) => {
-            console.log('successfully created new careteam id')
+            console.log('successfully created new careteam id', res.data.id);
+            setData(entries);
           })
           .catch((err) => {
             console.log('failed to create new careteam id')
