@@ -4,10 +4,10 @@
     "slug": "mvp",
     "version": "1.0.0",
     "orientation": "portrait",
-    "icon": "./assets/mr.gif",
+    "icon": "./assets/logo-icon.png",
     "userInterfaceStyle": "light",
     "splash": {
-      "image": "./assets/logo-icon.gif",
+      "image": "./assets/logo-icon.png",
       "resizeMode": "contain",
       "backgroundColor": "#FAF9F6"
     },
@@ -22,12 +22,12 @@
     },
     "android": {
       "adaptiveIcon": {
-        "foregroundImage": "./assets/logo-color.png",
+        "foregroundImage": "./assets/logo-icon.png",
         "backgroundColor": "#FFFFFF"
       }
     },
     "web": {
-      "favicon": "./assets/logo-color.png"
+      "favicon": "./assets/logo-icon.png"
     }
   }
 }
