@@ -2,6 +2,8 @@ import {useNavigation} from '@react-navigation/core';
 import {useRoute} from '@react-navigation/native';
 import React, {useState, useEffect} from 'react';
 import {FlatList, KeyboardAvoidingView, Modal, StyleSheet, Text, TextInput, View, TouchableOpacity} from 'react-native';
+import {auth} from '../../firebase.js';
+import axios from 'axios';
 
 const AddProvider = ({ route }) => {
   // const [id, setId] = useState(18);
@@ -12,11 +14,22 @@ const AddProvider = ({ route }) => {
 
   const navigation = useNavigation();
   const submit = route.params?.submitHandler;
+  let currentUser = auth.currentUser;
+  let currentUserUid = currentUser.uid;
 
   const handleAddEntry = () => {
-    let newEntry = {providername: providername, specialty: specialty, clinicname: clinicname, phonenumber: phonenumber};
-    submit(newEntry);
-    navigation.navigate('Care Team Tab');
+    // you need userId not uid
+    // maybe store UID and userId in the index.js so child components can access them
+    axios.get(`http://localhost:19001/user/careteam/${currentUserUid}`)
+    .then((res) => {
+      console.log('successfully retrieved careteam id', res.data);
+      let newEntry = {providername: providername, specialty: specialty, clinicname: clinicname, phonenumber: phonenumber};
+      submit(newEntry);
+      navigation.navigate('Care Team Tab');
+    })
+    .catch((err) => {
+      console.log('failed to retrieve care team id', err);
+    })
   };
 
   return (

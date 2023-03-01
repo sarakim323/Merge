@@ -2,20 +2,26 @@ import {useNavigation} from '@react-navigation/core'
 import React, {useState, useEffect} from 'react';
 import {useRoute} from '@react-navigation/native';
 import {KeyboardAvoidingView, Button, StyleSheet, Image, Text, TextInput, View, TouchableOpacity, FlatList} from 'react-native';
-// import {auth} from '.../firebase';
+import {auth} from '../../firebase.js';
 
 const CareTeamScreen = () => {
   const [data, setData] = useState([]);
   // const route = useRoute();
   const navigation = useNavigation();
+  // let currentUser = auth.currentUser;
+  // let currentUserUid = currentUser.uid;
 
+  // const entries = [
+  //     {id: 1, providername: 'Dr. Safoora Harandi, DO', specialty: 'internal medicine', clinicname: 'Westlake Medical Associates', phonenumber: '123-456-7890'},
+  //     {id: 2, providername: 'Dr. Joseph Pearson, MD', specialty: 'dermatology', clinicname: 'Evergreen Dermatology', phonenumber: '987-654-3210'},
+  //     {id: 3, providername: 'Dr. Mary Hudgens, MD', specialty: 'OBGYN', clinicname: 'Hillside Obstetrics and Gynecology', phonenumber: '123-456-7890'},
+  //     {id: 4, providername: 'Dr. Tam Nguyen, MD', specialty: 'cardiology', clinicname: 'Advanced Heart Care', phonenumber: '555-777-2315'},
+  //     {id: 5, providername: 'Dr. Samuel Banks, MD', specialty: 'optometry', clinicname: 'First Eye Care', phonenumber: '246-813-5792'}
+  // ];
   const entries = [
-      {id: 1, providername: 'Dr. Safoora Harandi, DO', specialty: 'internal medicine', clinicname: 'Westlake Medical Associates', phonenumber: '123-456-7890'},
-      {id: 2, providername: 'Dr. Joseph Pearson, MD', specialty: 'dermatology', clinicname: 'Evergreen Dermatology', phonenumber: '987-654-3210'},
-      {id: 3, providername: 'Dr. Mary Hudgens, MD', specialty: 'OBGYN', clinicname: 'Hillside Obstetrics and Gynecology', phonenumber: '123-456-7890'},
-      {id: 4, providername: 'Dr. Tam Nguyen, MD', specialty: 'cardiology', clinicname: 'Advanced Heart Care', phonenumber: '555-777-2315'},
-      {id: 5, providername: 'Dr. Samuel Banks, MD', specialty: 'optometry', clinicname: 'First Eye Care', phonenumber: '246-813-5792'}
-  ];
+    {id: 1, providername: '(Example) Dr. Pearson, MD', specialty: 'Cardiology', clinicname: 'Advanced Heart Care', phonenumber: '(123)456-7890'
+    }
+  ]
 
   useEffect(() => {
       setData(entries);
