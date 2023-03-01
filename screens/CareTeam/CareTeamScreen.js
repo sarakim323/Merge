@@ -2,14 +2,16 @@ import {useNavigation} from '@react-navigation/core'
 import React, {useState, useEffect} from 'react';
 import {useRoute} from '@react-navigation/native';
 import {KeyboardAvoidingView, Button, StyleSheet, Image, Text, TextInput, View, TouchableOpacity, FlatList} from 'react-native';
+import axios from 'axios';
 import {auth} from '../../firebase.js';
 
 const CareTeamScreen = () => {
+  const [userId, setUserId] = useState('');
   const [data, setData] = useState([]);
-  // const route = useRoute();
+
   const navigation = useNavigation();
-  // let currentUser = auth.currentUser;
-  // let currentUserUid = currentUser.uid;
+  const currentUser = auth.currentUser;
+  const currentUserUid = currentUser.uid;
 
   // const entries = [
   //     {id: 1, providername: 'Dr. Safoora Harandi, DO', specialty: 'internal medicine', clinicname: 'Westlake Medical Associates', phonenumber: '123-456-7890'},
@@ -24,11 +26,44 @@ const CareTeamScreen = () => {
   ]
 
   useEffect(() => {
-      setData(entries);
+    axios.get(`http://localhost:19001/user/profile/${currentUserUid}`)
+    .then((res) => {
+      console.log('successfully retrieved userId', res.data);
+      let results = res.data.results[0];
+      let id = results['id'];
+      setUserId(id);
+      // setData(entries);
+      axios.get(`http://localhost:19001/user/careteam/${id}`)
+      .then((res) => {
+        console.log('successfully retrieved careteam list', res.data.results);
+        if(res.data.results.length === 0) {
+          // create care team
+          axios.post(`http://localhost:19001/user/careteam`, {
+            userId: id
+          })
+          .then((res) => {
+            console.log('successfully created new careteam id')
+          })
+          .catch((err) => {
+            console.log('failed to create new careteam id')
+          })
+        } else {
+          setData(res.data.results);
+        }
+      })
+      .catch((err) => {
+        console.log('failed to retrieve care team list', err);
+      })
+    })
+    .catch((err) => {
+      console.log('failed to get user profile from DB', err)
+    });
   }, [])
 
   const addEntry = () => {
-    navigation.navigate('Add Provider', {submitHandler});
+    navigation.navigate('Add Provider', {
+      userId: userId,
+      submitHandler: submitHandler});
   }
 
   const submitHandler = (entry) => {
@@ -48,7 +83,7 @@ const CareTeamScreen = () => {
   return (
     <KeyboardAvoidingView style={styles.container} behavior="padding">
       <Text style={styles.description}>Click on the entry to delete!</Text>
-      <FlatList data={data} keyExtractor={(item) => item.id} renderItem={({item}) =>
+      <FlatList data={data} keyExtractor={(item) => item.key} renderItem={({item}) =>
         <TouchableOpacity style={styles.entryContainer} onPress={() => deleteEntry(item.id)} >
           <Text style={styles.item}>{item.providername}</Text>
           <Text style={styles.item}>{item.specialty}</Text>

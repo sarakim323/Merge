@@ -102,6 +102,9 @@ const HomeScreen = () => {
 const Tab = createBottomTabNavigator();
 
 const SignInScreen = () => {
+  let currentUser = auth.currentUser;
+  let currentUserUid = currentUser.uid;
+
   return (
     <Tab.Navigator
       screenOptions={({route}) => ({

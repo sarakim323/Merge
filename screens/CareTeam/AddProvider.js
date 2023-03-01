@@ -6,7 +6,6 @@ import {auth} from '../../firebase.js';
 import axios from 'axios';
 
 const AddProvider = ({ route }) => {
-  // const [id, setId] = useState(18);
   const [providername, setprovidername] = useState('');
   const [specialty, setspecialty] = useState('');
   const [clinicname, setclinicname] = useState('');
@@ -14,13 +13,11 @@ const AddProvider = ({ route }) => {
 
   const navigation = useNavigation();
   const submit = route.params?.submitHandler;
-  let currentUser = auth.currentUser;
-  let currentUserUid = currentUser.uid;
 
   const handleAddEntry = () => {
     // you need userId not uid
     // maybe store UID and userId in the index.js so child components can access them
-    axios.get(`http://localhost:19001/user/careteam/${currentUserUid}`)
+    axios.get(`http://localhost:19001/user/careteam/${route.params.userId}`)
     .then((res) => {
       console.log('successfully retrieved careteam id', res.data);
       let newEntry = {providername: providername, specialty: specialty, clinicname: clinicname, phonenumber: phonenumber};
@@ -30,6 +27,7 @@ const AddProvider = ({ route }) => {
     .catch((err) => {
       console.log('failed to retrieve care team id', err);
     })
+    // axios.post(`http://localhost:19001/user/careteam`)
   };
 
   return (
