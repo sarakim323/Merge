@@ -13,14 +13,11 @@ const Profile = () => {
   const [height, updateHeight] = useState('');
   const [weight, updateWeight] = useState('');
 
-  let currentUser = auth.currentUser;
-  let currentUserUid = currentUser.uid;
-
   const navigation = useNavigation();
   const route = useRoute();
 
   const handleEditProfile = () => {
-    axios.get(`http://localhost:19001/user/profile/${currentUserUid}`)
+    axios.get(`http://localhost:19001/user/profile/${route.params.currentUserUid}`)
     .then((res) => {
       console.log('result: ', res.data.results[0].id);
       axios.post('http://localhost:19001/user/profile/edit', {

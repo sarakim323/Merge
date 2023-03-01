@@ -25,13 +25,6 @@ const HomeScreen = () => {
   console.log('current User', currentUser.uid);
 
   const navigation = useNavigation();
-  // const focus = useIsFocused();
-
-  // useEffect(() => {
-  //   if (focus == true) {
-  //     GetProfile();
-  //   }
-  // }, [focus])
 
   axios.get(`http://localhost:19001/user/profile/${currentUserUid}`)
   .then((res) => {
@@ -89,6 +82,8 @@ const HomeScreen = () => {
         <View style={styles.buttonContainer}>
           <TouchableOpacity
           onPress={() => navigation.navigate('Profile', {
+            currentUser: currentUser,
+            currentUserUid: currentUserUid,
             setMedicalConditions: (a) => setMedicalConditions(a),
             setAllergies: (b) => setAllergies(b),
             setBloodtype: (c) => setBloodtype(c),
