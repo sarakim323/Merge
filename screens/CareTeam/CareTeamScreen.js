@@ -101,10 +101,12 @@ const CareTeamScreen = () => {
       <FlatList data={data} keyExtractor={(item) => item.key} renderItem={({item}) =>
         <TouchableOpacity style={styles.entryContainer} onPress={() => deleteEntry(item.id)} >
           <Text style={styles.item}>{item.providername}</Text>
-          <Text style={styles.item}>{item.providername}</Text>
           <Text style={styles.item}>{item.specialty}</Text>
           <Text style={styles.item}>{item.clinicname}</Text>
           <Text style={styles.item}>{item.phonenumber}</Text>
+          <TouchableOpacity style={[styles.deletebutton, styles.deletebuttonOutline]} onPress={() => deleteEntry(item.id)}>
+            <Text style={styles.deletebuttonText}>Delete</Text>
+          </TouchableOpacity>
         </TouchableOpacity>
       } />
       <TouchableOpacity onPress={addEntry} style={styles.button}>
@@ -170,6 +172,26 @@ const styles = StyleSheet.create({
   //   flex: 1,
   //   marginTop: 30
   // },
+  deletebutton: {
+    backgroundColor: '#0782F9',
+    width: '60%',
+    padding: 10,
+    borderRadius: 10,
+    marginTop: 40,
+    marginBottom: 15
+  },
+  deletebuttonOutline: {
+    backgroundColor: '#237693',
+    marginTop: 10,
+    borderColor:'#237693',
+    borderWidth: 2,
+  },
+  deletebuttonText: {
+    color: '#FAF9F6',
+    fontWeight: '700',
+    fontSize: 16,
+    textAlign: 'center'
+  },
   modalView: {
     flex: 1,
     alignItems: 'center',

@@ -8,7 +8,21 @@ const Provider = (props) => {
   const [specialty, setSpecialty] = ('');
   const [clinicName, setClinicName] = ('');
   const [phoneNumber, setphoneNumber] = ('');
-
+  // const updateEntry = () => {
+  //   axios.post(`http://localhost:19001/user/careteam/provider/edit`, {
+  //     providername: providername,
+  //     specialty: specialty,
+  //     clinicname: clinicname,
+  //     phonenumber: phonenumber,
+  //     id: id
+  //   })
+  //   .then((res) => {
+  //     console.log('updated provider info');
+  //   })
+  //   .catch((res) => {
+  //     console.log('failed to update provider info', err);
+  //   })
+  // }
   return (
     <View>Did it work</View>
     // <KeyboardAvoidingView style={styles.container} behavior="padding">
