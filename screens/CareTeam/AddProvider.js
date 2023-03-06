@@ -12,7 +12,7 @@ const AddProvider = ({ route }) => {
   const [phonenumber, setphoneNumber] = useState('');
 
   const navigation = useNavigation();
-  const submit = route.params?.submitHandler;
+  const submit = route.params?.setNewProvider;
 
   const handleAddEntry = () => {
     axios.get(`http://localhost:19001/user/careteam/${route.params.userId}`)
@@ -29,7 +29,7 @@ const AddProvider = ({ route }) => {
       })
       .then((res) => {
         console.log('successfully added provider to db', res.data);
-        let newEntry = {id: res.data.id, providername: res.data.providername, specialty: res.data.specialty, clinicname: res.data.clinicname, phonenumber: res.data.phonenumber};
+        let newEntry = {key: res.data.id, providername: res.data.providername, specialty: res.data.specialty, clinicname: res.data.clinicname, phonenumber: res.data.phonenumber};
         submit(newEntry);
         navigation.navigate('Care Team Tab');
       })

@@ -14,6 +14,7 @@ const Provider = () => {
   const navigation = useNavigation();
   const route = useRoute();
   const physicianId = route.params.physicianId;
+  const submit = route.params?.setNewProvider;
 
   const handleEditProvider = () => {
     axios.post(`http://localhost:19001/user/careteam/provider/edit`, {
@@ -25,8 +26,8 @@ const Provider = () => {
     })
     .then((res) => {
       console.log('updated provider info', res.data);
+      submit(res.data[0]);
       navigation.navigate('Care Team Tab');
-      // retrieve new data
     })
     .catch((res) => {
       console.log('failed to update provider info', err);

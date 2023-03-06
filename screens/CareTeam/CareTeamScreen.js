@@ -8,18 +8,12 @@ import {auth} from '../../firebase.js';
 const CareTeamScreen = () => {
   const [userId, setUserId] = useState('');
   const [data, setData] = useState([]);
+  const [newProvider, setNewProvider] = useState({});
 
   const navigation = useNavigation();
   const currentUser = auth.currentUser;
   const currentUserUid = currentUser.uid;
 
-  // const entries = [
-  //     {id: 1, providername: 'Dr. Safoora Harandi, DO', specialty: 'internal medicine', clinicname: 'Westlake Medical Associates', phonenumber: '123-456-7890'},
-  //     {id: 2, providername: 'Dr. Joseph Pearson, MD', specialty: 'dermatology', clinicname: 'Evergreen Dermatology', phonenumber: '987-654-3210'},
-  //     {id: 3, providername: 'Dr. Mary Hudgens, MD', specialty: 'OBGYN', clinicname: 'Hillside Obstetrics and Gynecology', phonenumber: '123-456-7890'},
-  //     {id: 4, providername: 'Dr. Tam Nguyen, MD', specialty: 'cardiology', clinicname: 'Advanced Heart Care', phonenumber: '555-777-2315'},
-  //     {id: 5, providername: 'Dr. Samuel Banks, MD', specialty: 'optometry', clinicname: 'First Eye Care', phonenumber: '246-813-5792'}
-  // ];
   const entries = [
     {key: 1, providername: '(Example) Dr. Pearson, MD', specialty: 'Cardiology', clinicname: 'Advanced Heart Care', phonenumber: '(123)456-7890'
     }
@@ -62,22 +56,17 @@ const CareTeamScreen = () => {
     .catch((err) => {
       console.log('failed to get user profile from DB', err)
     });
-  }, [])
+  }, [newProvider])
 
   const addEntry = () => {
     navigation.navigate('Add Provider', {
       userId: userId,
-      submitHandler: submitHandler});
+      setNewProvider: setNewProvider});
   }
 
-  const submitHandler = (entry) => {
-    setData((prevData) => {
-      return [
-        {key: Math.random().toString(), providername: entry.providername, specialty: entry.specialty, clinicname: entry.clinicname, phonenumber: entry.phonenumber},
-        ...prevData,
-      ]
-    })
-  }
+  // const submitHandler = (entry) => {
+  //   setNewProvider(entry);
+  // }
 
   const deleteEntry = (id) => {
     console.log('desired deleted id', id);
@@ -100,7 +89,7 @@ const CareTeamScreen = () => {
       <Text style={styles.description}>Click on the entry to delete!</Text>
       <FlatList data={data} keyExtractor={(item) => item.key} renderItem={({item}) =>
         <TouchableOpacity style={styles.entryContainer} onPress={() => navigation.navigate('Provider', {
-          physicianId: item.id
+          physicianId: item.id, setNewProvider: setNewProvider
         })} >
           <Text style={styles.item}>{item.providername}</Text>
           <Text style={styles.item}>{item.specialty}</Text>
