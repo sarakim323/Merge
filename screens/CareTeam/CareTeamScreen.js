@@ -41,7 +41,6 @@ const CareTeamScreen = () => {
             console.log('failed to create new careteam id')
           })
         } else {
-          res.data.results[0]['providers'].length === 0
           if(res.data.results[0]['providers'].length === 0) {
             setData(entries);
           } else {
@@ -61,12 +60,9 @@ const CareTeamScreen = () => {
   const addEntry = () => {
     navigation.navigate('Add Provider', {
       userId: userId,
-      setNewProvider: setNewProvider});
+      setNewProvider: setNewProvider
+    });
   }
-
-  // const submitHandler = (entry) => {
-  //   setNewProvider(entry);
-  // }
 
   const deleteEntry = (id) => {
     console.log('desired deleted id', id);
@@ -86,7 +82,7 @@ const CareTeamScreen = () => {
 
   return (
     <KeyboardAvoidingView style={styles.container} behavior="padding">
-      <Text style={styles.description}>Click on the entry to delete!</Text>
+      <Text style={styles.description}>Click on the entry to edit!</Text>
       <FlatList data={data} keyExtractor={(item) => item.key} renderItem={({item}) =>
         <TouchableOpacity style={styles.entryContainer} onPress={() => navigation.navigate('Provider', {
           physicianId: item.id, setNewProvider: setNewProvider

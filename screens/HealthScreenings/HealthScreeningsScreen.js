@@ -1,14 +1,14 @@
 import {useNavigation} from '@react-navigation/core'
 import React, {useState, useEffect} from 'react';
 import {KeyboardAvoidingView, Image, StyleSheet, Text, TextInput, View, TouchableOpacity, FlatList} from 'react-native';
-// import {auth} from '.../firebase';
+import {auth} from '../../firebase';
+import axios from 'axios';
 
 const HealthScreeningsScreen = () => {
   const [userID, setUserID] = useState('');
   const navigation = useNavigation();
-  // let currentUser = auth.currentUser;
-  // let currentUserUid = currentUser.uid;
-  // console.log('before get req uid: ', currentUserUid)
+  const currentUser = auth.currentUser;
+  const currentUserUid = currentUser.uid;
 
   const data = [
     {id: 1, title: 'Medical'},
@@ -18,22 +18,23 @@ const HealthScreeningsScreen = () => {
     {id: 5, title: 'Other'}
   ];
 
-  const GetUserID = () => {
-    axios.get(`http://localhost:19001/user/${currentUserUid}`)
-    .then((data) => {
-      console.log('current user id: ', data.results[0][type]);
+  useEffect(() => {
+    axios.get(`http://localhost:19001/user/profile/${currentUserUid}`)
+    .then((res) => {
+      console.log('retrieved user id successfully');
+      setUserID(res.data.results[0]['id']);
     })
     .catch((err) => {
       console.log('failed in receiving user id: ', err);
     })
-  }
+  }, []);
 
   return (
     <KeyboardAvoidingView style={styles.container} behavior="padding">
       <Image source={require('/Users/SaraKim/HackReactor/senior-phase/mvp/assets/mr.gif')} style= {styles.gifImage} />
       <Text style={styles.description}>Stay up to date with your health!</Text>
       <FlatList data={data} keyExtractor={(item) => item.id} renderItem={({item}) => (
-        <TouchableOpacity onPress={() => { navigation.navigate('Health Screenings Entry', {title: item.title})}}>
+        <TouchableOpacity onPress={() => { navigation.navigate('Health Screenings Entry', {title: item.title, userID: userID})}}>
           <View style={styles.listcontainer}>
           <Text style={styles.listdetails}>{item.title}</Text>
           </View>

@@ -2,83 +2,88 @@ import {useNavigation} from '@react-navigation/core';
 import {useRoute} from '@react-navigation/native';
 import React, {useState, useEffect} from 'react';
 import {FlatList, KeyboardAvoidingView, Modal, StyleSheet, Text, TextInput, View, TouchableOpacity} from 'react-native';
+import axios from 'axios';
 
 const HealthScreeningsEntry = ({ route }) => {
+  const [hsId, setHSId] = useState(0);
   const [data, setData] = useState([]);
-  // const route = useRoute();
+  const [newEntry, setNewEntry] = useState({});
   const navigation = useNavigation();
 
   const title = route.params?.title;
-
-  const entries = {
-    Medical: [
-      {id: 1, date: '03/01/2020', name: 'Annual Physical Exam', provider: 'Dr. Shahina Shah, MD', notes: 'lab result - low TSH (0.32 mIU/L'},
-      {id: 2, date: '06/15/2020', name: 'Thyroid F/U', provider: 'Dr. Shahina Shah, MD', notes: 'lab result - TSH (3.8 mIU/L'},
-      {id: 3, date: '03/22/2021', name: 'Annual Physical Exam', provider: 'Dr. Shahina Shah, MD', notes: ''},
-      {id: 4, date: '04/09/2021', name: 'COVID-19 Vaccination', provider: 'CVS', notes: 'first dose'}
-    ],
-    Dental: [
-      {id: 5, date: '05/31/2022', name: 'Routine Dental Exam & Cleaning', provider: 'Dr. Mary Smith', notes: ''},
-      {id: 6, date: '01/01/2023', name: 'Invisalign Follow Up', provider: 'Dr. Danny Moon', notes: '1 out of 8 trays'},
-      {id: 7, date: '01/15/2023', name: 'Invisalign Follow Up', provider: 'Dr. Danny Moon', notes: '2 out of 8 trays'},
-    ],
-    Vision: [
-      {id: 8, date: '12/13/2021', name: 'Routine Eye Exam', provider: 'Dr. Tiffany Doan', notes: 'p/u trial contacts by 12/20'},
-      {id: 9, date: '12/18/2022', name: 'Routine Eye Exam', provider: 'Dr. Tiffany Doan', notes: ''},
-    ],
-   'Women\'s Wellness': [
-      {id: 10, date: '08/31/2022', name: 'Routine Well-Woman Exam', provider: 'Dr. Samantha Carson', notes: ''},
-    ],
-    Other: [
-      {id: 11, date: '01/29/2022', name: 'Microneedling', provider: 'Avia Medical Spa', notes: '1 out of 3 rounds'},
-      {id: 12, date: '02/29/2022', name: 'Hydrafacial', provider: 'Avia Medical Spa', notes: ''},
-      {id: 13, date: '03/27/2022', name: 'Microneedling', provider: 'Avia Medical Spa', notes: '2 out of 3 rounds'},
-      {id: 14, date: '04/30/2022', name: 'Hydrafacial', provider: 'Avia Medical Spa', notes: ''},
-      {id: 15, date: '05/30/2022', name: 'Microneedling', provider: 'Avia Medical Spa', notes: '3 out of 3 rounds'},
-      {id: 16, date: '09/19/2022', name: 'Dermaplaning', provider: 'Atomic Beauty', notes: ''},
-      {id: 17, date: '01/03/2023', name: 'Microdermabrasion', provider: 'Atomic Beauty', notes: ''},
-    ]
-  }
-
-  const filteredentries = entries[title];
-  // if (route.params.newEntry) {
-  //   setData([...filteredentries, {key: data.id}]);
-  // } else {
-  //   setData(filteredentries);
-  // }
-
-  // console.log('new data: ', route.params.newEntry);
+  const userID = route.params?.userID;
 
   useEffect(() => {
-      setData(filteredentries);
-    // const unsubscribe = navigation.addListener('focus', () => {
-    //   if (route.params.newEntry) {
-    //     console.log('new entry: ', route.params.newEntry);
-    //     filteredentries = filteredentries.push(route.params.newEntry);
-    //   }
-    //   setData(filteredentries);
-    // })
-    // return unsubscribe;
-  }, [])
+    let filteredEntries;
+    let category;
+    if (title === 'Medical') {
+      category = 'medicals';
+    } else if (title === 'Dental') {
+      category = 'dentals';
+    } else if (title === 'Vision') {
+      category = 'visions';
+    } else if (title === 'Women\'s Wellness') {
+      category = 'womenwellnesses';
+    } else if (title === 'Other') {
+      category = 'others';
+    }
+
+    axios.get(`http://localhost:19001/user/healthscreenings/${userID}`)
+    .then((res) => {
+      console.log('successfully retrieved health screening entries', res.data.results[0]);
+      const allEntries = res.data.results[0];
+
+      if(res.data.results.length === 0) {
+        axios.post(`http://localhost:19001/user/healthscreenings`, {
+          userId: userID
+        })
+        .then((res) => {
+          console.log('successfully created new health screening id', res.data.id);
+          setHSId(res.data.id);
+          setData(allEntries);
+        })
+        .catch((err) => {
+          console.log('failed to create new health screening id');
+        })
+      } else {
+        setHSId(res.data.results[0]['id']);
+        console.log('allEntries', allEntries);
+        console.log('category', category);
+        setData(allEntries[category])
+      }
+    })
+    .catch((err) => {
+      console.log('failed to retrieve health screening entries', err);
+    })
+  }, [newEntry])
+
+  console.log('hsid', hsId);
+  console.log('filtered data that has been set', data);
 
   const addEntry = () => {
-    navigation.navigate('Add Entry', {submitHandler});
+    navigation.navigate('Add Entry', {
+      userID: userID,
+      title: title,
+      hsId: hsId,
+      setNewEntry: setNewEntry
+    });
   }
 
-  const submitHandler = (entry) => {
-    setData((prevData) => {
-      return [
-        {key: Math.random().toString(), date: entry.date, name: entry.name, provider: entry.provider, notes: entry.notes},
-        ...prevData,
-      ]
-    })
-  }
+  // const submitHandler = (entry) => {
+  //   setData((prevData) => {
+  //     return [
+  //       {key: Math.random().toString(), date: entry.date, name: entry.name, provider: entry.provider, notes: entry.notes},
+  //       ...prevData,
+  //     ]
+  //   })
+  // }
 
   const deleteEntry = (id) => {
     setData((prev) => {
       return prev.filter(entry => entry.id != id)
     })
   }
+
   return (
     <KeyboardAvoidingView style={styles.container} behavior="padding">
       <Text style={styles.description}>Click on the entry to delete!</Text>
