@@ -84,7 +84,7 @@ const CareTeamScreen = () => {
     <KeyboardAvoidingView style={styles.container} behavior="padding">
       <Text style={styles.description}>Click on the entry to edit!</Text>
       <FlatList data={data} keyExtractor={(item) => item.key} renderItem={({item}) =>
-        <TouchableOpacity style={styles.entryContainer} onPress={() => navigation.navigate('Provider', {
+        <TouchableOpacity style={styles.entryContainer} onPress={() => navigation.navigate('Edit Provider', {
           physicianId: item.id, setNewProvider: setNewProvider
         })} >
           <Text style={styles.item}>{item.providername}</Text>

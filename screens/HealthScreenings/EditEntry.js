@@ -1,22 +1,22 @@
 import {useNavigation} from '@react-navigation/core';
 import {useRoute} from '@react-navigation/native';
 import React, {useState, useEffect} from 'react';
-import {FlatList, KeyboardAvoidingView, Modal, StyleSheet, Text, TextInput, View, TouchableOpacity} from 'react-native';
+import {KeyboardAvoidingView, StyleSheet, Text, TextInput, View, TouchableOpacity} from 'react-native';
+import {auth} from '../../firebase.js';
 import axios from 'axios';
 
-const AddEntry = ({ route }) => {
+const EditEntry = ({ route }) => {
   const [date, setDate] = useState('');
   const [name, setName] = useState('');
   const [provider, setProvider] = useState('');
   const [notes, setNotes] = useState('');
 
   const navigation = useNavigation();
-  const userID = route.params.userID;
   const title = route.params?.title;
-  const hsID = route.params.hsId;
-  const submit = route.params.setNewEntry;
+  const id = route.params.id;
+  const setNewEntry = route.params.setNewEntry;
 
-  const handleAddEntry = () => {
+  const handleEditEntry = () => {
     console.log('title: ', title);
     let hsname;
     if (title === 'Medical') {
@@ -33,29 +33,22 @@ const AddEntry = ({ route }) => {
       hsname = 'other'
     }
 
-    axios.post(`http://localhost:19001/user/healthscreenings/${hsname}`, {
+    axios.post(`http://localhost:19001/user/healthscreenings/${hsname}/edit`, {
       date: date,
       name: name,
       provider: provider,
       notes: notes,
-      healthscreeningId: hsID
+      id: id
     })
     .then((res) => {
-      console.log('successfully posted health screening entry', res.data);
-      let newEntry = {
-        id: res.data.id,
-        date: res.data.date,
-        name: res.data.name,
-        provider: res.data.provider,
-        notes: res.data.notes
-      }
-      submit(newEntry);
+      console.log('updated health screening entry', res.data);
+      setNewEntry(res.data[0]);
       navigation.navigate('Health Screenings Tab');
     })
     .catch((err) => {
-      console.log('failed to post health screening entry', err);
+      console.log('failed to update health screening entry', err);
     })
-  };
+  }
 
   return (
     <KeyboardAvoidingView style={styles.container} behavior="padding">
@@ -97,16 +90,16 @@ const AddEntry = ({ route }) => {
       </View>
       <View style={styles.buttonContainer}>
           <TouchableOpacity
-          onPress={handleAddEntry}
+          onPress={handleEditEntry}
           style={[styles.button, styles.buttonOutline]}>
-            <Text style={styles.buttonOutlineText}>Add</Text>
+            <Text style={styles.buttonOutlineText}>Save</Text>
           </TouchableOpacity>
       </View>
     </KeyboardAvoidingView>
   )
 };
 
-export default AddEntry;
+export default EditEntry;
 
 const styles = StyleSheet.create({
   container: {

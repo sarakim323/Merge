@@ -69,8 +69,6 @@ const HealthScreeningsEntry = ({ route }) => {
   }
 
   const deleteEntry = (id) => {
-    console.log('desired deleted id', id);
-    console.log('title from deletion', title);
     let hsname;
     if (title === 'Medical') {
       hsname = 'medical';
@@ -102,9 +100,9 @@ const HealthScreeningsEntry = ({ route }) => {
 
   return (
     <KeyboardAvoidingView style={styles.container} behavior="padding">
-      <Text style={styles.description}>Click on the entry to delete!</Text>
+      <Text style={styles.description}>Click on the entry to edit!</Text>
       <FlatList data={data} keyExtractor={(item) => item.id} renderItem={({item}) =>
-        <TouchableOpacity style={styles.entryContainer} onPress={() => deleteEntry(item.id)} >
+        <TouchableOpacity style={styles.entryContainer} onPress={() => navigation.navigate('Edit Entry', {id: item.id, title: title, setNewEntry: setNewEntry})} >
           <Text style={styles.item}>{item.name}</Text>
           <Text style={styles.item}>{item.date}</Text>
           <Text style={styles.item}>{item.provider}</Text>

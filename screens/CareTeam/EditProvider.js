@@ -5,14 +5,13 @@ import {KeyboardAvoidingView, StyleSheet, Text, TextInput, View, TouchableOpacit
 import {auth} from '../../firebase.js';
 import axios from 'axios';
 
-const Provider = () => {
+const EditProvider = ({ route }) => {
   const [providername, setprovidername] = useState('');
   const [specialty, setspecialty] = useState('');
   const [clinicname, setclinicname] = useState('');
   const [phonenumber, setphoneNumber] = useState('');
 
   const navigation = useNavigation();
-  const route = useRoute();
   const physicianId = route.params.physicianId;
   const submit = route.params?.setNewProvider;
 
@@ -83,7 +82,7 @@ const Provider = () => {
   )
 };
 
-export default Provider;
+export default EditProvider;
 
 
 const styles = StyleSheet.create({
