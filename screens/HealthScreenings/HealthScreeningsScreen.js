@@ -15,7 +15,8 @@ const HealthScreeningsScreen = () => {
     {id: 2, title: 'Dental'},
     {id: 3, title: 'Vision'},
     {id: 4, title: 'Women\'s Wellness'},
-    {id: 5, title: 'Other'}
+    {id: 5, title: 'Immunization'},
+    {id: 6, title: 'Other'}
   ];
 
   useEffect(() => {

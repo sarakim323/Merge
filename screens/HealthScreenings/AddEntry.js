@@ -36,7 +36,7 @@ const AddEntry = ({ route }) => {
           notes: res.data.notes
         }
         submit(newEntry);
-        navigation.navigate('Health Screenings Entry');
+        navigation.navigate('Health Screenings Tab');
       })
       .catch((err) => {
         console.log('failed to post medical entry', err);
@@ -59,6 +59,7 @@ const AddEntry = ({ route }) => {
           notes: res.data.notes
         }
         submit(newEntry);
+        navigation.navigate('Health Screenings Tab');
       })
       .catch((err) => {
         console.log('failed to post dental entry', err);
@@ -81,6 +82,7 @@ const AddEntry = ({ route }) => {
           notes: res.data.notes
         }
         submit(newEntry);
+        navigation.navigate('Health Screenings Tab');
       })
       .catch((err) => {
         console.log('failed to post vision entry', err);
@@ -103,9 +105,33 @@ const AddEntry = ({ route }) => {
           notes: res.data.notes
         }
         submit(newEntry);
+        navigation.navigate('Health Screenings Tab');
       })
       .catch((err) => {
         console.log('failed to post women wellness entry', err);
+      })
+    } else if (title === 'Immunization') {
+      axios.post(`http://localhost:19001/user/healthscreenings/immunization`, {
+        date: date,
+        name: name,
+        provider: provider,
+        notes: notes,
+        healthscreeningId: hsID
+      })
+      .then((res) => {
+        console.log('successfully posted immunization entry', res.data);
+        let newEntry = {
+          id: res.data.id,
+          date: res.data.date,
+          name: res.data.name,
+          provider: res.data.provider,
+          notes: res.data.notes
+        }
+        submit(newEntry);
+        navigation.navigate('Health Screenings Tab');
+      })
+      .catch((err) => {
+        console.log('failed to post immunization entry', err);
       })
     } else if (title === 'Other') {
       axios.post(`http://localhost:19001/user/healthscreenings/other`, {
@@ -125,6 +151,7 @@ const AddEntry = ({ route }) => {
           notes: res.data.notes
         }
         submit(newEntry);
+        navigation.navigate('Health Screenings Tab');
       })
       .catch((err) => {
         console.log('failed to post other entry', err);

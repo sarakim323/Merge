@@ -24,6 +24,8 @@ const HealthScreeningsEntry = ({ route }) => {
       category = 'visions';
     } else if (title === 'Women\'s Wellness') {
       category = 'womenwellnesses';
+    } else if (title === 'Immunization') {
+      category = 'immunizations';
     } else if (title === 'Other') {
       category = 'others';
     }
@@ -57,9 +59,6 @@ const HealthScreeningsEntry = ({ route }) => {
     })
   }, [newEntry])
 
-  console.log('hsid', hsId);
-  console.log('filtered data that has been set', data);
-
   const addEntry = () => {
     navigation.navigate('Add Entry', {
       userID: userID,
@@ -69,18 +68,35 @@ const HealthScreeningsEntry = ({ route }) => {
     });
   }
 
-  // const submitHandler = (entry) => {
-  //   setData((prevData) => {
-  //     return [
-  //       {key: Math.random().toString(), date: entry.date, name: entry.name, provider: entry.provider, notes: entry.notes},
-  //       ...prevData,
-  //     ]
-  //   })
-  // }
-
   const deleteEntry = (id) => {
+    console.log('desired deleted id', id);
+    console.log('title from deletion', title);
+    let hsname;
+    if (title === 'Medical') {
+      hsname = 'medical';
+    } else if (title === 'Dental') {
+      hsname = 'dental';
+    } else if (title === 'Vision') {
+      hsname = 'vision';
+    } else if (title === 'Women\'s Wellness') {
+      hsname = 'womenwellness';
+    } else if (title === 'Immunization') {
+      hsname = 'immunization';
+    } else if (title === 'Other') {
+      hsname = 'other'
+    }
+
+    axios.delete(`http://localhost:19001/user/healthscreenings/${hsname}/${id}`, {
+      id: id
+    })
+    .then((res) => {
     setData((prev) => {
       return prev.filter(entry => entry.id != id)
+    })
+      console.log('successfully deleted health screening entry');
+    })
+    .catch((err) => {
+      console.log('failed to delete health screening entry', err);
     })
   }
 
@@ -93,6 +109,9 @@ const HealthScreeningsEntry = ({ route }) => {
           <Text style={styles.item}>{item.date}</Text>
           <Text style={styles.item}>{item.provider}</Text>
           <Text style={styles.item}>{item.notes}</Text>
+          <TouchableOpacity style={[styles.deletebutton, styles.deletebuttonOutline]} onPress={() => deleteEntry(item.id)}>
+            <Text style={styles.deletebuttonText}>Delete</Text>
+          </TouchableOpacity>
         </TouchableOpacity>
       } />
       <TouchableOpacity onPress={addEntry} style={styles.button}>
@@ -145,6 +164,26 @@ const styles = StyleSheet.create({
     color: '#FAF9F6',
     fontWeight: '700',
     fontSize: 16,
+  },
+  deletebutton: {
+    backgroundColor: '#0782F9',
+    width: '60%',
+    padding: 10,
+    borderRadius: 10,
+    marginTop: 40,
+    marginBottom: 15
+  },
+  deletebuttonOutline: {
+    backgroundColor: '#237693',
+    marginTop: 10,
+    borderColor:'#237693',
+    borderWidth: 2,
+  },
+  deletebuttonText: {
+    color: '#FAF9F6',
+    fontWeight: '700',
+    fontSize: 16,
+    textAlign: 'center'
   },
   description: {
     color: 'black',

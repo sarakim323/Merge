@@ -6,7 +6,7 @@ import axios from 'axios';
 import {auth} from '../../firebase.js';
 
 const CareTeamScreen = () => {
-  const [userId, setUserId] = useState('');
+  const [userId, setUserId] = useState(0);
   const [data, setData] = useState([]);
   const [newProvider, setNewProvider] = useState({});
 
