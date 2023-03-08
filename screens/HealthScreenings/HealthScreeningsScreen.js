@@ -63,7 +63,7 @@ const styles = StyleSheet.create({
   gifImage: {
     resizeMode: 'contain',
     width: '50%',
-    flex: 2,
+    flex: 100,
     marginTop: 30
   },
   listcontainer: {
