@@ -33,13 +33,13 @@ The home screen contains the user's basic health profile that can be edited. Hea
 <img src="https://media.giphy.com/media/G3mb8KfwVwvGYeY69V/giphy.gif" />
 
 ### Health Screenings History
-Users can view, add, and delete routine health screenings history by category. Categories include medical, dental, vision, women's wellness, and other. Each category consists of health screening entries.
+Users can view, add, edit, and delete routine health screenings history by category. Categories include medical, dental, vision, women's wellness, and other. Each category consists of health screening entries.
 
 <img src="https://media.giphy.com/media/5Cqw0Bq0q53yUQRKOP/giphy.gif" />
 <img src="https://media.giphy.com/media/xIUqRIet5FEJxuHnwr/giphy.gif" />
 
 ### Care Team
-Users can record a list of their healthcare providers with their respective contact information. A provider can be added and deleted from the existing list.
+Users can record a list of their healthcare providers with their respective contact information. A provider can be added, edited, and deleted from the existing list.
 
 <img src="https://media.giphy.com/media/U6NNXVcSCppt3KHKRd/giphy.gif" />
 
